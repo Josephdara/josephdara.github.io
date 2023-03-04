@@ -16,6 +16,7 @@ body {
   padding: 0 10px;
   margin: 60px auto;
   max-width: 700px;
+  font-family: 'Roboto Mono', monospace;
 }
 
 h2,
@@ -31,7 +32,7 @@ h2 {
 
 a:link,
 a:visited {
-  color: blue;
+  color: rgb(78, 78, 85);
 }
 
 code,
