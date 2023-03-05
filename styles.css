@@ -3,6 +3,10 @@
   margin-bottom: 0.2em;
 }
 
+html {
+  background-color: #222222;
+  color: beige;
+}
 .subtitle {
   text-align: center;
   font-size: medium;
@@ -16,25 +20,23 @@ body {
   padding: 0 10px;
   margin: 60px auto;
   max-width: 700px;
-  font-family: 'Roboto Mono', monospace;
+  font-family: "Roboto Mono", monospace;
 }
 
 h2,
 h2,
-h3 {
+h3 , 
+h4{
   line-height: 1.2;
+}
+h4{
+  font-size: small;
 }
 
 h2 {
   font-style: italic;
   font-size: 18px;
 }
-
-a:link,
-a:visited {
-  color: rgb(78, 78, 85);
-}
-
 code,
 .code {
   font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
@@ -45,7 +47,7 @@ code,
   padding-bottom: 0;
   margin: 0;
   font-size: 85%;
-  background-color: rgba(0, 0, 0, 0.04);
+  background-color: rgba(238, 212, 212, 0.04);
   border-radius: 3px;
 }
 .subtitle {
@@ -76,6 +78,9 @@ h2 {
 
 a:link,
 a:visited {
+  color: rgb(104, 90, 29);
+}
+a:hover {
   color: blue;
 }
 
