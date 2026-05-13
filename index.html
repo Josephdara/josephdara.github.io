@@ -1,92 +1,706 @@
 <!DOCTYPE html>
 <html lang="en">
- <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Joseph's Portfolio's Site" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Joseph Oluwadara — Blockchain Security Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  <title>Josephdara.eth</title>
+    :root {
+      --bg:       #0a0c0f;
+      --surface:  #111418;
+      --border:   #1e2530;
+      --accent:   #00d4ff;
+      --accent2:  #0066ff;
+      --muted:    #4a5568;
+      --text:     #e2e8f0;
+      --text-dim: #8899aa;
+      --red:      #ff4560;
+      --green:    #00e676;
+    }
 
-  <link rel="stylesheet" href="styles.css" />
- </head>
+    html { scroll-behavior: smooth; }
 
- <body>
-  <div id="preamble">
-   <h1 class="title">Josephdara.eth</h1>
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Syne', sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
 
-   <h2 class="subtitle">
-    Contacts: 
-    <a href="mailto:jsatimehin@gmail.com">Email</a>,
-    <a href="https://github.com/josephdara">Github</a> or
-    <a href="https://twitter.com/jhoe0x">Twitter</a>
-   </h2>
-   <hr>
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.5;
+    }
 
-  </div>
+    /* ── GRID BG ── */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.3;
+    }
 
-  <div>
-   <p>I am a Blockchain Security Engineer currently working as a warden at Code4Rena and a Watson at Sherlock, Auditing Smart contracts of different protocols.</p>
+    /* ── LAYOUT ── */
+    .wrapper {
+      position: relative;
+      z-index: 1;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
 
-   <div>
-    <ul>
-        <li>
-            My engineering skills are in Smart Contract development and Auditing, EVM Blockchains, Non EVM Blockchains, MEV, ZK Proofs, Rollups and Parachains.
-        </li>
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      background: rgba(10,12,15,0.85);
+      border-bottom: 1px solid var(--border);
+    }
 
-        <li>
-          I am a Smart Contract Engineer and Auditor with vast experience in writing Solidity smart contracts and deeper understanding of the EVM. 
-I use Foundry, Hardhat and Remix for smart contract writing, testing and fuzz testing . I also use automated tools like Slither and Echidna. I have experience working with different smart contracts, including: AMMs, Fungible and Nonfungible tokens, Staking contract, Account Abstraction, Vaults, Proxies and Upgradeable contracts, as well as building personalized smart contracts.  
-I am a security minded engineer and I currently do smart contract audits at Code4rena and Sherlock . I also participate in different CTFs and I have completed a few such as Ethernaut from Openzeppelin, DamnVunerableDefi, Secureum Bootcamp and more.
-        </li>
-        </ul>
+    nav .wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 16px;
+      padding-bottom: 16px;
+    }
+
+    .nav-logo {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 13px;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      color: var(--text-dim);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 100px 0 80px;
+      position: relative;
+    }
+
+    .hero-tag {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hero-tag::before {
+      content: '';
+      display: inline-block;
+      width: 20px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    h1 {
+      font-size: clamp(40px, 7vw, 72px);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+    }
+
+    h1 .name-dim { color: var(--text-dim); }
+    h1 .name-bright { color: var(--text); }
+
+    .hero-bio {
+      max-width: 560px;
+      color: var(--text-dim);
+      font-size: 16px;
+      line-height: 1.7;
+      margin-bottom: 40px;
+    }
+
+    .hero-bio strong { color: var(--text); font-weight: 600; }
+
+    .hero-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 10px 20px;
+      border-radius: 4px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg);
+    }
+
+    .btn-primary:hover {
+      background: #33ddff;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(0,212,255,0.25);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text-dim);
+      border: 1px solid var(--border);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* ── STATS ROW ── */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      margin: 72px 0;
+      overflow: hidden;
+    }
+
+    .stat {
+      background: var(--surface);
+      padding: 28px 24px;
+    }
+
+    .stat-num {
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--accent);
+      letter-spacing: -0.02em;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .stat-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      color: var(--text-dim);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* ── SECTIONS ── */
+    section { padding: 64px 0; border-top: 1px solid var(--border); }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    .section-num {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+    }
+
+    h2 {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--text);
+    }
+
+    /* ── EXPERIENCE ── */
+    .job {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      padding: 28px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      margin-bottom: 12px;
+      transition: border-color 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .job::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 2px;
+      background: transparent;
+      transition: background 0.2s;
+    }
+
+    .job:hover { border-color: rgba(0,212,255,0.3); }
+    .job:hover::before { background: var(--accent); }
+
+    .job-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .job-company {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .job-date {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      color: var(--text-dim);
+      white-space: nowrap;
+      padding-top: 2px;
+    }
+
+    .job ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .job li {
+      color: var(--text-dim);
+      font-size: 14px;
+      line-height: 1.55;
+      padding-left: 16px;
+      position: relative;
+    }
+
+    .job li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .job li strong { color: var(--text); font-weight: 600; }
+
+    /* ── ACHIEVEMENTS ── */
+    .achievements-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .achievement {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 20px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .achievement:hover {
+      border-color: rgba(0,212,255,0.25);
+      transform: translateY(-2px);
+    }
+
+    .achievement-rank {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 22px;
+      font-weight: 500;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    .achievement-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .achievement-detail {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      color: var(--text-dim);
+    }
+
+    /* ── SKILLS ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .skill-group {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 20px 24px;
+    }
+
+    .skill-group-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .tag {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      color: var(--text-dim);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 4px 9px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 0;
+    }
+
+    footer .wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-copy {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .footer-links a {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--accent); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero > * {
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .hero > *:nth-child(1) { animation-delay: 0.05s; }
+    .hero > *:nth-child(2) { animation-delay: 0.15s; }
+    .hero > *:nth-child(3) { animation-delay: 0.25s; }
+    .hero > *:nth-child(4) { animation-delay: 0.35s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .stats { grid-template-columns: 1fr; }
+      .achievements-grid { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      footer .wrapper { flex-direction: column; gap: 16px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="wrapper">
+      <a class="nav-logo" href="#">josephdara.eth</a>
+      <ul class="nav-links">
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#achievements">Achievements</a></li>
+        <li><a href="#skills">Skills</a></li>
+      </ul>
     </div>
-    <hr>
-    <div id ="bio">
-        <h1>Skills</h1>
-        Here's a list of some programming languages I currently use:
-        <ul>
-            <li>Solidity</li>
-            <li>Rust</li>
-            <li>JavaScript</li>
-            <li>TypeScript</li>
-            <li>Web3.js</li>
-            <li>Ethers.js</li>
-            <li>Foundry</li>
-            <li>Hardhat</li>
-            <li>Cadence</li>
-            <li>Node.js</li>
-            <li>React.js</li>
-            <li>Next.js   ......</li>
-        </ul>
+  </nav>
+
+  <main class="wrapper">
+
+    <!-- HERO -->
+    <section class="hero" style="border: none; padding-top: 100px;">
+      <div class="hero-tag">Blockchain Security Engineer</div>
+      <h1>
+        <span class="name-dim">Joseph</span><br>
+        <span class="name-bright">Oluwadara</span>
+      </h1>
+      <p class="hero-bio">
+        Security Engineer at <strong>Coinbase</strong>, securing Base L2 infrastructure.
+        Independent researcher with <strong>50+ Critical / High / Medium findings</strong>
+        across 200,000+ SLOC on Code4rena, Cantina, Sherlock &amp; Immunefi.
+        Deep expertise in EVM internals, cross-chain bridges, and Solana programs.
+      </p>
+      <div class="hero-links">
+        <a class="btn btn-primary" href="mailto:jsatimehin@gmail.com">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          jsatimehin@gmail.com
+        </a>
+        <a class="btn btn-outline" href="https://github.com/josephdara" target="_blank" rel="noopener">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+          josephdara
+        </a>
+        <a class="btn btn-outline" href="Joseph_Oluwadara.pdf" target="_blank" rel="noopener">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+          Resume
+        </a>
+        <a class="btn btn-outline" href="https://twitter.com/jhoe0x" target="_blank" rel="noopener">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.259 5.632zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          @jhoe0x
+        </a>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-num">50+</div>
+        <div class="stat-label">Critical / High / Med Findings</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">200k+</div>
+        <div class="stat-label">Lines of Code Reviewed</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">20+</div>
+        <div class="stat-label">Competitive Audits</div>
+      </div>
     </div>
-  <hr>
-    <h1>Some Previous Engagements</h1>
-    <div>
-        <h2>Solo Smart Contract Auditing </h2>  <h4>January 2023 - Current</h4>
-       <p>Participation in Competitive Audits in Code4Rena and Sherlock. Also bounty hunting in ImmuneFi</p>
-   </div>
-    <div>
-        <h2>ASTRA METAVERSE </h2>  <h4>September 2022 - Current</h4>
-       <p>Creation of ERC 721, ERC 20, ERC 1155 and a Metaverse smart contract. All modified and securely tested to fit our ecosystem or roadmap.</p>
-       <p>Handling smart contract integration, as well as wallets interactions </p>
-   </div>
-   <div>
-    <h2>COLLECT WAVES </h2>  <h4>May 2022 - December  2022</h4>
-   <p>Creation of Music NFTs minter and Music NFT Marketplace on the Flow Blockchain</p>
-   </div>
-   <div>
-    <h2>LivingStone Blockchain IT </h2>  <h4>January 2022 - August 2022</h4>
-   <p>Creation of a dentralized blockchain exchange for token swaps</p>
-</div>
 
-<hr>
-<div>
- <h1>Education</h1>
-  <h3>Bachelor of Science, MATHEMATICS</h3>
- <h2>Federal University of Abeokuta, Ogun, Nigeria</h2>
- <h3>Secureum Bootcamp</h3>
- <h3>Alchemy University</h3>
+    <!-- EXPERIENCE -->
+    <section id="experience">
+      <div class="section-header">
+        <span class="section-num">01</span>
+        <h2>Experience</h2>
+      </div>
 
-</div>
- </body>
+      <div class="job">
+        <div>
+          <div class="job-title">Blockchain Security Engineer</div>
+          <div class="job-company">Coinbase</div>
+          <ul>
+            <li>Audited the <strong>Base-Solana Bridge</strong> for cross-chain asset transfer security.</li>
+            <li>Led security review of <strong>x402</strong>, Coinbase's HTTP-native payment protocol on Base.</li>
+            <li>Led security review and validation of the <strong>Base Azul</strong> major L2 upgrade.</li>
+            <li>Built internal AI-powered smart contract auditing tooling.</li>
+            <li>On-call incident response rotation — triaged and coordinated live security incidents.</li>
+            <li>Conducted <strong>20+ ecosystem security reviews</strong> for projects building on Base.</li>
+            <li>Speaker at <strong>DeFi Security Summit 2025</strong>.</li>
+          </ul>
+        </div>
+        <div class="job-date">Nov 2024 – Present</div>
+      </div>
+
+      <div class="job">
+        <div>
+          <div class="job-title">Solo Smart Contract Security Researcher</div>
+          <div class="job-company">Code4rena · Cantina · Immunefi · Sherlock · Codehawks</div>
+          <ul>
+            <li>Conducted <strong>20+ competitive audits</strong>, uncovering 40+ High/Medium severity bugs.</li>
+            <li>Reviewed 200,000+ SLOC across AMMs, lending markets, stablecoins, and omnichain infra.</li>
+            <li><strong>Top 5 finish</strong> in the Ethena contest — stablecoin protocol with $1B+ TVL.</li>
+            <li>Completed Ethernaut, Damn Vulnerable DeFi, and Secureum Bootcamp CTFs.</li>
+          </ul>
+        </div>
+        <div class="job-date">Jan 2023 – Jan 2025</div>
+      </div>
+
+      <div class="job">
+        <div>
+          <div class="job-title">Developer Advocate (Contract)</div>
+          <div class="job-company">INTMAX</div>
+          <ul>
+            <li>Led ZK protocol education and developer onboarding across Africa — Google DevFest Lagos, Africa Tech Summit Nairobi.</li>
+          </ul>
+        </div>
+        <div class="job-date">Oct 2023 – Mar 2024</div>
+      </div>
+
+      <div class="job">
+        <div>
+          <div class="job-title">Blockchain Developer (Contract)</div>
+          <div class="job-company">Astra Metaverse · Collect Waves</div>
+          <ul>
+            <li>Developed and deployed ERC-1155 contracts for the Astra Metaverse Marketplace with backend API integrations.</li>
+            <li>Built Music NFT and marketplace contracts with ERC-20 tokens and API integrations at Collect Waves.</li>
+          </ul>
+        </div>
+        <div class="job-date">May 2022 – Jan 2023</div>
+      </div>
+    </section>
+
+    <!-- AUDIT ACHIEVEMENTS -->
+    <section id="achievements">
+      <div class="section-header">
+        <span class="section-num">02</span>
+        <h2>Audit Achievements</h2>
+      </div>
+      <div class="achievements-grid">
+        <div class="achievement">
+          <div class="achievement-rank">Audit</div>
+          <div class="achievement-name">Base-Solana Bridge</div>
+          <div class="achievement-detail">Cross-chain bridge security · Coinbase</div>
+        </div>
+        <div class="achievement">
+          <div class="achievement-rank">Audit</div>
+          <div class="achievement-name">x402 Protocol</div>
+          <div class="achievement-detail">HTTP-native payments on Base · Coinbase</div>
+        </div>
+<div class="achievement">
+          <div class="achievement-rank">Speaker</div>
+          <div class="achievement-name">DeFi Security Summit 2025</div>
+          <div class="achievement-detail">Representing Coinbase Security team</div>
+        </div>
+        <div class="achievement">
+          <div class="achievement-rank">20+</div>
+          <div class="achievement-name">Ecosystem Security Reviews</div>
+          <div class="achievement-detail">Base project reviews + M&amp;A technical audits · Coinbase</div>
+        </div>
+        <div class="achievement">
+          <div class="achievement-rank">Top 5 / 9</div>
+          <div class="achievement-name">Multiple Top Finishes</div>
+          <div class="achievement-detail">Ethena (Top 5), WildCat (Top 9), Good Entry (Top 9) · Code4rena</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <div class="section-header">
+        <span class="section-num">03</span>
+        <h2>Technical Skills</h2>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-group">
+          <div class="skill-group-label">Languages</div>
+          <div class="skill-tags">
+            <span class="tag">Solidity</span>
+            <span class="tag">Assembly (YUL)</span>
+            <span class="tag">Rust</span>
+            <span class="tag">JavaScript</span>
+            <span class="tag">TypeScript</span>
+            <span class="tag">Python</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-label">Frameworks &amp; Tools</div>
+          <div class="skill-tags">
+            <span class="tag">Foundry</span>
+            <span class="tag">Hardhat</span>
+            <span class="tag">Anchor</span>
+            <span class="tag">Slither</span>
+            <span class="tag">Aderyn</span>
+            <span class="tag">Echidna</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-label">Protocol Experience</div>
+          <div class="skill-tags">
+            <span class="tag">AMMs</span>
+            <span class="tag">Lending</span>
+            <span class="tag">Vaults</span>
+            <span class="tag">Proxies</span>
+            <span class="tag">Liquid Staking</span>
+            <span class="tag">L2 / Bridge</span>
+            <span class="tag">Smart Wallets</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-label">Audit Platforms</div>
+          <div class="skill-tags">
+            <span class="tag">Code4rena</span>
+            <span class="tag">Cantina</span>
+            <span class="tag">Sherlock</span>
+            <span class="tag">Immunefi</span>
+            <span class="tag">QuillAudits</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="wrapper">
+      <span class="footer-copy">© 2025 Joseph Oluwadara · Toronto, ON</span>
+      <div class="footer-links">
+        <a href="mailto:jsatimehin@gmail.com">Email</a>
+        <a href="https://github.com/josephdara" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://twitter.com/jhoe0x" target="_blank" rel="noopener">Twitter</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
 </html>
