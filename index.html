@@ -1,720 +1,483 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-ground="colophon">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Joseph Oluwadara — Blockchain Security Engineer</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Joseph Olutimehin | Cloud Engineer</title>
+  <meta name="description" content="Google Cloud Certified Associate Cloud Engineer in Toronto. Infrastructure, IAM and networking on Google Cloud, provisioned with Terraform and released through approval-gated Cloud Build pipelines.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+  <script>document.documentElement.classList.add('js');</script>
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --bg:       #0a0c0f;
-      --surface:  #111418;
-      --border:   #1e2530;
-      --accent:   #00d4ff;
-      --accent2:  #0066ff;
-      --muted:    #4a5568;
-      --text:     #e2e8f0;
-      --text-dim: #8899aa;
-      --red:      #ff4560;
-      --green:    #00e676;
-    }
-
     html { scroll-behavior: smooth; }
+    body { -webkit-font-smoothing: antialiased; }
+    a:hover { color: var(--color-accent-700); }
 
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Syne', sans-serif;
-      font-size: 15px;
-      line-height: 1.6;
-      min-height: 100vh;
-      overflow-x: hidden;
+    /* grounds: the design's Appearance prop, resolved at author time.
+       Swap the data-ground value on <html> to change the paper. */
+    :root[data-ground="paper"] { --color-bg: #f3f2f2; }
+    :root[data-ground="bone"]  { --color-bg: #f8f4f4; }
+    :root[data-ground="linen"] { --color-bg: #eae9e9; --color-surface: #e0dedd; }
+    :root[data-ground="colophon"] {
+      --color-bg: #1a1918;
+      --color-surface: #2d2b2b;
+      --color-text: #f3f2f2;
+      --color-divider: color-mix(in srgb, #f3f2f2 22%, transparent);
+      --color-neutral-100: #2d2b2b;
+      --color-neutral-600: #bab6b6;
+      --color-neutral-700: #d7d3d3;
+      --color-neutral-800: #eae7e7;
+      --color-accent-100: #3a270d;
+      --color-accent-700: #e1ad66;
+      --color-accent-800: #ffe3bf;
     }
 
-    /* ── NOISE OVERLAY ── */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.5;
+    /* reveal on scroll */
+    [data-reveal] { opacity: var(--reveal-opacity, 1); }
+    .js [data-reveal] {
+      will-change: opacity, transform;
+      transition: opacity 700ms ease, transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .js [data-reveal]:not(.is-visible) { opacity: 0; transform: translateY(14px); }
+    .js [data-reveal="rule"] {
+      transform-origin: left center;
+      transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .js [data-reveal="rule"]:not(.is-visible) { opacity: var(--reveal-opacity, 1); transform: scaleX(0); }
+    @media (prefers-reduced-motion: reduce) {
+      .js [data-reveal] { transition: none; }
+      .js [data-reveal]:not(.is-visible) { opacity: var(--reveal-opacity, 1); transform: none; }
     }
 
-    /* ── GRID BG ── */
-    body::after {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image:
-        linear-gradient(var(--border) 1px, transparent 1px),
-        linear-gradient(90deg, var(--border) 1px, transparent 1px);
-      background-size: 48px 48px;
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.3;
+    /* layout */
+    .shell { max-width: 1080px; margin: 0 auto; padding: 0 max(28px, 4vw); }
+    .topbar {
+      position: sticky; top: 0; z-index: 30;
+      background: color-mix(in srgb, var(--color-bg) 90%, transparent);
+      backdrop-filter: blur(8px);
+      padding: 14px max(28px, 4vw);
     }
-
-    /* ── LAYOUT ── */
-    .wrapper {
-      position: relative;
-      z-index: 1;
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-
-    /* ── NAV ── */
-    nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      background: rgba(10,12,15,0.85);
-      border-bottom: 1px solid var(--border);
-    }
-
-    nav .wrapper {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding-top: 16px;
-      padding-bottom: 16px;
-    }
-
-    .nav-logo {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 13px;
-      color: var(--accent);
-      letter-spacing: 0.05em;
-      text-decoration: none;
-    }
-
     .nav-links {
-      display: flex;
-      gap: 28px;
-      list-style: none;
+      display: flex; align-items: center; flex-wrap: wrap; gap: 26px;
+      font-size: 13.5px; letter-spacing: 0.02em;
     }
-
-    .nav-links a {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 12px;
-      color: var(--text-dim);
-      text-decoration: none;
-      letter-spacing: 0.08em;
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover { color: var(--accent); }
-
-    /* ── HERO ── */
-    .hero {
-      padding: 100px 0 80px;
-      position: relative;
-    }
-
-    .hero-tag {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 11px;
-      color: var(--accent);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      margin-bottom: 20px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .hero-tag::before {
-      content: '';
-      display: inline-block;
-      width: 20px;
-      height: 1px;
-      background: var(--accent);
-    }
-
-    h1 {
-      font-size: clamp(40px, 7vw, 72px);
-      font-weight: 800;
-      line-height: 1.05;
-      letter-spacing: -0.02em;
-      margin-bottom: 24px;
-    }
-
-    h1 .name-dim { color: var(--text-dim); }
-    h1 .name-bright { color: var(--text); }
-
-    .hero-bio {
-      max-width: 560px;
-      color: var(--text-dim);
-      font-size: 16px;
-      line-height: 1.7;
-      margin-bottom: 40px;
-    }
-
-    .hero-bio strong { color: var(--text); font-weight: 600; }
-
-    .hero-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      padding: 10px 20px;
-      border-radius: 4px;
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 12px;
-      font-weight: 500;
-      letter-spacing: 0.06em;
-      text-decoration: none;
-      transition: all 0.2s;
-      cursor: pointer;
-      border: none;
-    }
-
-    .btn-primary {
-      background: var(--accent);
-      color: var(--bg);
-    }
-
-    .btn-primary:hover {
-      background: #33ddff;
-      transform: translateY(-1px);
-      box-shadow: 0 8px 24px rgba(0,212,255,0.25);
-    }
-
-    .btn-outline {
-      background: transparent;
-      color: var(--text-dim);
-      border: 1px solid var(--border);
-    }
-
-    .btn-outline:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-
-    /* ── STATS ROW ── */
-    .stats {
+    section[id] { scroll-margin-top: 72px; } /* clear the sticky nav on anchor jumps */
+    .section-split {
+      border-top: 1px solid var(--color-divider);
+      padding: clamp(48px, 7vw, 84px) 0;
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      margin: 72px 0;
-      overflow: hidden;
+      grid-template-columns: minmax(0, 200px) minmax(0, 1fr);
+      gap: clamp(24px, 5vw, 56px);
     }
-
-    .stat {
-      background: var(--surface);
-      padding: 28px 24px;
+    .skill-row {
+      display: grid; grid-template-columns: minmax(0, 160px) minmax(0, 1fr);
+      gap: 8px 24px; padding: 16px 0;
+      border-bottom: 1px solid var(--color-divider);
     }
-
-    .stat-num {
-      font-size: 36px;
-      font-weight: 800;
-      color: var(--accent);
-      letter-spacing: -0.02em;
-      line-height: 1;
-      margin-bottom: 6px;
+    .skill-row:last-child { border-bottom: 0; }
+    .skill-row > :first-child { font-family: var(--font-heading); font-size: 16px; }
+    .skill-row > :last-child { display: flex; flex-wrap: wrap; gap: 6px; }
+    .link-title {
+      display: block; color: inherit; text-decoration: none;
+      font-family: var(--font-heading); font-size: 21px; line-height: 1.25;
     }
-
-    .stat-label {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 11px;
-      color: var(--text-dim);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
+    .link-title:hover { text-decoration: underline; text-underline-offset: 4px; }
+    .credly-mount {
+      background: #f8f4f4; border: 1px solid var(--color-divider); padding: 3px;
+      width: 336px; max-width: 100%;
+      display: flex; align-items: flex-start; justify-content: center; overflow: hidden;
     }
+    .credly-mount iframe { display: block; vertical-align: top; height: 212px; }
 
-    /* ── SECTIONS ── */
-    section { padding: 64px 0; border-top: 1px solid var(--border); }
-
-    .section-header {
-      display: flex;
-      align-items: baseline;
-      gap: 16px;
-      margin-bottom: 40px;
+    @media (max-width: 760px) {
+      .nav-links { gap: 14px 18px; }
+      .section-split { grid-template-columns: minmax(0, 1fr); gap: 20px; }
     }
-
-    .section-num {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 11px;
-      color: var(--accent);
-      letter-spacing: 0.1em;
-    }
-
-    h2 {
-      font-size: 24px;
-      font-weight: 700;
-      letter-spacing: -0.01em;
-      color: var(--text);
-    }
-
-    /* ── EXPERIENCE ── */
-    .job {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 8px;
-      padding: 28px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      margin-bottom: 12px;
-      transition: border-color 0.2s;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .job::before {
-      content: '';
-      position: absolute;
-      left: 0; top: 0; bottom: 0;
-      width: 2px;
-      background: transparent;
-      transition: background 0.2s;
-    }
-
-    .job:hover { border-color: rgba(0,212,255,0.3); }
-    .job:hover::before { background: var(--accent); }
-
-    .job-title {
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--text);
-      margin-bottom: 4px;
-    }
-
-    .job-company {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 12px;
-      color: var(--accent);
-      margin-bottom: 16px;
-    }
-
-    .job-date {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 11px;
-      color: var(--text-dim);
-      white-space: nowrap;
-      padding-top: 2px;
-    }
-
-    .job ul {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 7px;
-    }
-
-    .job li {
-      color: var(--text-dim);
-      font-size: 14px;
-      line-height: 1.55;
-      padding-left: 16px;
-      position: relative;
-    }
-
-    .job li::before {
-      content: '—';
-      position: absolute;
-      left: 0;
-      color: var(--muted);
-      font-size: 12px;
-    }
-
-    .job li strong { color: var(--text); font-weight: 600; }
-
-    /* ── ACHIEVEMENTS ── */
-    .achievements-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-
-    .achievement {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 20px;
-      transition: border-color 0.2s, transform 0.2s;
-    }
-
-    .achievement:hover {
-      border-color: rgba(0,212,255,0.25);
-      transform: translateY(-2px);
-    }
-
-    .achievement-rank {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 22px;
-      font-weight: 500;
-      color: var(--accent);
-      margin-bottom: 6px;
-    }
-
-    .achievement-name {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--text);
-      margin-bottom: 4px;
-    }
-
-    .achievement-detail {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 11px;
-      color: var(--text-dim);
-    }
-
-    /* ── SKILLS ── */
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-    }
-
-    .skill-group {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 20px 24px;
-    }
-
-    .skill-group-label {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 10px;
-      color: var(--accent);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      margin-bottom: 14px;
-    }
-
-    .skill-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 7px;
-    }
-
-    .tag {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 11px;
-      color: var(--text-dim);
-      background: rgba(255,255,255,0.04);
-      border: 1px solid var(--border);
-      border-radius: 3px;
-      padding: 4px 9px;
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 40px 0;
-    }
-
-    footer .wrapper {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .footer-copy {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 11px;
-      color: var(--muted);
-    }
-
-    .footer-links {
-      display: flex;
-      gap: 20px;
-    }
-
-    .footer-links a {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 11px;
-      color: var(--muted);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    .footer-links a:hover { color: var(--accent); }
-
-    /* ── ANIMATIONS ── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    .hero > * {
-      animation: fadeUp 0.6s ease both;
-    }
-
-    .hero > *:nth-child(1) { animation-delay: 0.05s; }
-    .hero > *:nth-child(2) { animation-delay: 0.15s; }
-    .hero > *:nth-child(3) { animation-delay: 0.25s; }
-    .hero > *:nth-child(4) { animation-delay: 0.35s; }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 600px) {
-      .stats { grid-template-columns: 1fr; }
-      .achievements-grid { grid-template-columns: 1fr; }
-      .skills-grid { grid-template-columns: 1fr; }
-      .nav-links { display: none; }
-      footer .wrapper { flex-direction: column; gap: 16px; text-align: center; }
+    @media (max-width: 560px) {
+      .skill-row { grid-template-columns: minmax(0, 1fr); }
+      /* The full link set wraps to three rows here, too much to pin. */
+      .topbar { position: static; flex-wrap: wrap; padding-block: 12px; }
+      .nav-brand { width: 100%; margin-right: 0; }
+      .nav-links { gap: 12px 16px; font-size: 13px; }
     }
   </style>
 </head>
 <body>
 
-  <nav>
-    <div class="wrapper">
-      <a class="nav-logo" href="#">josephdara.eth</a>
-      <ul class="nav-links">
-        <li><a href="#experience">Experience</a></li>
-        <li><a href="#achievements">Achievements</a></li>
-        <li><a href="#skills">Skills</a></li>
-      </ul>
+<div style="background: var(--color-bg); color: var(--color-text); min-height: 100vh;">
+
+  <nav class="nav topbar">
+    <span class="nav-brand" style="font-size: 17px; letter-spacing: 0.01em;">Joseph Olutimehin</span>
+    <div class="nav-links">
+      <a href="#certification">Certification</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#writing">Writing</a>
+      <a class="btn btn-primary" href="./Joseph_Olutimehin_Resume.pdf" style="font-size: 13px;">Résumé</a>
     </div>
   </nav>
 
-  <main class="wrapper">
+  <div class="shell">
 
-    <!-- HERO -->
-    <section class="hero" style="border: none; padding-top: 100px;">
-      <div class="hero-tag">Blockchain Security Engineer</div>
-      <h1>
-        <span class="name-dim">Joseph</span><br>
-        <span class="name-bright">Oluwadara</span>
-      </h1>
-      <p class="hero-bio">
-        Security Engineer at <strong>Coinbase</strong>, securing Base L2 infrastructure.
-        Independent researcher with <strong>50+ Critical / High / Medium findings</strong>
-        across 200,000+ SLOC on Code4rena, Cantina, Sherlock &amp; Immunefi.
-        Deep expertise in EVM internals, cross-chain bridges, and Solana programs.
-      </p>
-      <div class="hero-links">
-        <a class="btn btn-primary" href="mailto:jsatimehin@gmail.com">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          jsatimehin@gmail.com
-        </a>
-        <a class="btn btn-outline" href="https://github.com/josephdara" target="_blank" rel="noopener">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
-          josephdara
-        </a>
-        <a class="btn btn-outline" href="Joseph_Oluwadara.pdf" target="_blank" rel="noopener">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
-          Resume
-        </a>
-        <a class="btn btn-outline" href="https://twitter.com/jhoe0x" target="_blank" rel="noopener">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.259 5.632zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-          @jhoe0x
-        </a>
+    <section style="padding: clamp(56px, 9vw, 116px) 0 clamp(44px, 6vw, 80px);">
+      <div data-reveal style="display: flex; align-items: center; gap: 14px; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-accent-700); font-variant-numeric: tabular-nums;">
+        <span>Cloud Engineer</span>
+        <span style="width: 46px; height: 1px; background: var(--color-accent); display: block;"></span>
+        <span>Toronto, ON</span>
+      </div>
+      <h1 data-reveal style="font-weight: 400; font-size: clamp(52px, 9vw, 104px); line-height: 0.96; letter-spacing: -0.03em; margin: 22px 0 0;">Joseph<br>Olutimehin</h1>
+      <p data-reveal style="font-family: var(--font-heading); font-size: clamp(20px, 2.4vw, 27px); font-style: italic; line-height: 1.3; margin: 26px 0 0; max-width: 22ch; color: var(--color-neutral-800);">Google Cloud Certified Associate Cloud Engineer.</p>
+
+      <hr class="hr" data-reveal="rule" style="margin: clamp(32px, 5vw, 52px) 0;">
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: clamp(24px, 4vw, 52px);">
+        <p data-reveal style="text-align: justify; hyphens: auto; font-size: 16.5px; line-height: 1.72; margin: 0;">I build and secure infrastructure on Google Cloud: Compute Engine, Cloud Run, GKE, Cloud Storage, Cloud SQL, Pub/Sub, VPC and IAM, provisioned with Terraform and released through approval-gated Cloud Build pipelines. Four-plus years of production work sits behind that: blockchain security at Coinbase, backend systems in TypeScript and Node, and an on-call rotation that taught me what reliability actually costs.</p>
+        <p data-reveal style="text-align: justify; hyphens: auto; font-size: 16.5px; line-height: 1.72; margin: 0;">The security background is not a detour. I have completed 30+ security reviews of money-moving systems and led architecture reviews where the failure mode was irreversible. I bring that same posture to cloud work: least-privilege IAM, segmented networks, immutable releases, and logging you can answer questions with at 3am.</p>
+      </div>
+
+      <div data-reveal style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: clamp(30px, 4vw, 44px);">
+        <a class="btn btn-primary" href="./Joseph_Olutimehin_Resume.pdf" style="font-size: 14.5px; padding: 12px 22px;">Download résumé (PDF)</a>
+        <a class="btn btn-secondary" href="mailto:jsatimehin@gmail.com" style="font-size: 14.5px; padding: 12px 20px;">jsatimehin@gmail.com</a>
+        <a class="btn btn-secondary" href="https://github.com/josephdara" target="_blank" rel="noreferrer" style="font-size: 14.5px; padding: 12px 20px;">GitHub</a>
+        <a class="btn btn-secondary" href="https://linkedin.com/in/joseph-olutimehin" target="_blank" rel="noreferrer" style="font-size: 14.5px; padding: 12px 20px;">LinkedIn</a>
       </div>
     </section>
 
-    <!-- STATS -->
-    <div class="stats">
-      <div class="stat">
-        <div class="stat-num">50+</div>
-        <div class="stat-label">Critical / High / Med Findings</div>
+    <section id="certification" class="section-split">
+      <div>
+        <div class="card-kicker" data-reveal style="font-variant-numeric: tabular-nums; margin-bottom: 10px;">01</div>
+        <h2 data-reveal style="font-weight: 400; font-size: clamp(28px, 3.4vw, 38px); letter-spacing: -0.02em; margin: 0;">Certification</h2>
       </div>
-      <div class="stat">
-        <div class="stat-num">200k+</div>
-        <div class="stat-label">Lines of Code Reviewed</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">20+</div>
-        <div class="stat-label">Competitive Audits</div>
-      </div>
-    </div>
-
-    <!-- EXPERIENCE -->
-    <section id="experience">
-      <div class="section-header">
-        <span class="section-num">01</span>
-        <h2>Experience</h2>
-      </div>
-
-      <div class="job">
-        <div>
-          <div class="job-title">Blockchain Security Engineer</div>
-          <div class="job-company">Coinbase</div>
-          <ul>
-            <li>Audited the <strong>Base-Solana Bridge</strong> for cross-chain asset transfer security.</li>
-            <li>Led security review of <strong>x402</strong>, Coinbase's HTTP-native payment protocol on Base.</li>
-            <li>Led security review and validation of the <strong>Base Azul</strong> major L2 upgrade.</li>
-            <li>Built internal AI-powered smart contract auditing tooling.</li>
-            <li>On-call incident response rotation — triaged and coordinated live security incidents.</li>
-            <li>Conducted <strong>20+ ecosystem security reviews</strong> for projects building on Base.</li>
-            <li>Speaker at <strong>DeFi Security Summit 2025</strong>.</li>
-          </ul>
-        </div>
-        <div class="job-date">Nov 2024 – Present</div>
-      </div>
-
-      <div class="job">
-        <div>
-          <div class="job-title">Solo Smart Contract Security Researcher</div>
-          <div class="job-company">Code4rena · Cantina · Immunefi · Sherlock · Codehawks</div>
-          <ul>
-            <li>Conducted <strong>20+ competitive audits</strong>, uncovering 40+ High/Medium severity bugs.</li>
-            <li>Reviewed 200,000+ SLOC across AMMs, lending markets, stablecoins, and omnichain infra.</li>
-            <li><strong>Top 5 finish</strong> in the Ethena contest — stablecoin protocol with $1B+ TVL.</li>
-            <li>Completed Ethernaut, Damn Vulnerable DeFi, and Secureum Bootcamp CTFs.</li>
-          </ul>
-        </div>
-        <div class="job-date">Jan 2023 – Jan 2025</div>
-      </div>
-
-      <div class="job">
-        <div>
-          <div class="job-title">Developer Advocate (Contract)</div>
-          <div class="job-company">INTMAX</div>
-          <ul>
-            <li>Led ZK protocol education and developer onboarding across Africa — Google DevFest Lagos, Africa Tech Summit Nairobi.</li>
-          </ul>
-        </div>
-        <div class="job-date">Oct 2023 – Mar 2024</div>
-      </div>
-
-      <div class="job">
-        <div>
-          <div class="job-title">Blockchain Developer (Contract)</div>
-          <div class="job-company">Astra Metaverse · Collect Waves</div>
-          <ul>
-            <li>Developed and deployed ERC-1155 contracts for the Astra Metaverse Marketplace with backend API integrations.</li>
-            <li>Built Music NFT and marketplace contracts with ERC-20 tokens and API integrations at Collect Waves.</li>
-          </ul>
-        </div>
-        <div class="job-date">May 2022 – Jan 2023</div>
-      </div>
-    </section>
-
-    <!-- AUDIT ACHIEVEMENTS -->
-    <section id="achievements">
-      <div class="section-header">
-        <span class="section-num">02</span>
-        <h2>Audit Achievements</h2>
-      </div>
-      <div class="achievements-grid">
-        <div class="achievement">
-          <div class="achievement-rank">Audit</div>
-          <div class="achievement-name">Base-Solana Bridge</div>
-          <div class="achievement-detail">Cross-chain bridge security · Coinbase</div>
-        </div>
-        <div class="achievement">
-          <div class="achievement-rank">Audit</div>
-          <div class="achievement-name">x402 Protocol</div>
-          <div class="achievement-detail">HTTP-native payments on Base · Coinbase</div>
-        </div>
-<div class="achievement">
-          <div class="achievement-rank">Speaker</div>
-          <div class="achievement-name">DeFi Security Summit 2025</div>
-          <div class="achievement-detail">Representing Coinbase Security team</div>
-        </div>
-        <div class="achievement">
-          <div class="achievement-rank">20+</div>
-          <div class="achievement-name">Ecosystem Security Reviews</div>
-          <div class="achievement-detail">Base project reviews + M&amp;A technical audits · Coinbase</div>
-        </div>
-        <div class="achievement">
-          <div class="achievement-rank">Top 5 / 9</div>
-          <div class="achievement-name">Multiple Top Finishes</div>
-          <div class="achievement-detail">Ethena (Top 5), WildCat (Top 9), Good Entry (Top 9) · Code4rena</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SKILLS -->
-    <section id="skills">
-      <div class="section-header">
-        <span class="section-num">03</span>
-        <h2>Technical Skills</h2>
-      </div>
-      <div class="skills-grid">
-        <div class="skill-group">
-          <div class="skill-group-label">Languages</div>
-          <div class="skill-tags">
-            <span class="tag">Solidity</span>
-            <span class="tag">Assembly (YUL)</span>
-            <span class="tag">Rust</span>
-            <span class="tag">JavaScript</span>
-            <span class="tag">TypeScript</span>
-            <span class="tag">Python</span>
+      <div>
+        <div data-reveal style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: clamp(20px, 4vw, 44px); align-items: start;">
+          <div>
+            <h3 style="font-weight: 600; font-size: 25px; margin: 0 0 6px;">Associate Cloud Engineer</h3>
+            <p style="margin: 0 0 18px; font-size: 15px; color: var(--color-neutral-700);">Google Cloud</p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px 28px; font-variant-numeric: tabular-nums;">
+              <div>
+                <div style="font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-neutral-600); margin-bottom: 4px;">Issued</div>
+                <div style="font-family: var(--font-heading); font-size: 17px;">27 July 2026</div>
+              </div>
+              <div>
+                <div style="font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-neutral-600); margin-bottom: 4px;">Expires</div>
+                <div style="font-family: var(--font-heading); font-size: 17px;">27 July 2029</div>
+              </div>
+            </div>
+            <div style="margin-top: 18px;">
+              <div style="font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-neutral-600); margin-bottom: 4px;">Certification ID</div>
+              <div style="font-family: var(--font-heading); font-size: 13.5px; word-break: break-all; font-variant-numeric: tabular-nums; color: var(--color-neutral-800);">0e97354c793b4d6ea3186b77d3674f48</div>
+            </div>
+            <div style="margin-top: 20px;">
+              <a class="btn btn-primary" href="https://www.credly.com/badges/9600f599-8fd9-478e-bba6-6ac2f97716d9" target="_blank" rel="noreferrer">Verify credential</a>
+            </div>
           </div>
-        </div>
-        <div class="skill-group">
-          <div class="skill-group-label">Frameworks &amp; Tools</div>
-          <div class="skill-tags">
-            <span class="tag">Foundry</span>
-            <span class="tag">Hardhat</span>
-            <span class="tag">Anchor</span>
-            <span class="tag">Slither</span>
-            <span class="tag">Aderyn</span>
-            <span class="tag">Echidna</span>
-          </div>
-        </div>
-        <div class="skill-group">
-          <div class="skill-group-label">Protocol Experience</div>
-          <div class="skill-tags">
-            <span class="tag">AMMs</span>
-            <span class="tag">Lending</span>
-            <span class="tag">Vaults</span>
-            <span class="tag">Proxies</span>
-            <span class="tag">Liquid Staking</span>
-            <span class="tag">L2 / Bridge</span>
-            <span class="tag">Smart Wallets</span>
-          </div>
-        </div>
-        <div class="skill-group">
-          <div class="skill-group-label">Audit Platforms</div>
-          <div class="skill-tags">
-            <span class="tag">Code4rena</span>
-            <span class="tag">Cantina</span>
-            <span class="tag">Sherlock</span>
-            <span class="tag">Immunefi</span>
-            <span class="tag">QuillAudits</span>
-          </div>
-        </div>
-        <div class="skill-group">
-          <div class="skill-group-label">Web2 Development</div>
-          <div class="skill-tags">
-            <span class="tag">Node.js</span>
-            <span class="tag">React</span>
-            <span class="tag">Next.js</span>
-            <span class="tag">Express.js</span>
-            <span class="tag">NestJS</span>
-            <span class="tag">REST APIs</span>
-            <span class="tag">GraphQL</span>
-            <span class="tag">PostgreSQL</span>
-            <span class="tag">MongoDB</span>
+          <div class="credly-mount" data-credly-mount>
+            <div data-iframe-width="330" data-iframe-height="330" data-share-badge-id="9600f599-8fd9-478e-bba6-6ac2f97716d9" data-share-badge-host="https://www.credly.com"></div>
           </div>
         </div>
       </div>
     </section>
 
-  </main>
-
-  <footer>
-    <div class="wrapper">
-      <span class="footer-copy">© 2025 Joseph Oluwadara · Toronto, ON</span>
-      <div class="footer-links">
-        <a href="mailto:jsatimehin@gmail.com">Email</a>
-        <a href="https://github.com/josephdara" target="_blank" rel="noopener">GitHub</a>
-        <a href="https://twitter.com/jhoe0x" target="_blank" rel="noopener">Twitter</a>
+    <section id="projects" class="section-split">
+      <div>
+        <div class="card-kicker" data-reveal style="font-variant-numeric: tabular-nums; margin-bottom: 10px;">02</div>
+        <h2 data-reveal style="font-weight: 400; font-size: clamp(28px, 3.4vw, 38px); letter-spacing: -0.02em; margin: 0;">Cloud projects</h2>
       </div>
-    </div>
-  </footer>
+      <div style="display: flex; flex-direction: column; gap: clamp(28px, 4vw, 44px);">
+
+        <article data-reveal>
+          <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 12px;">
+            <h3 style="font-weight: 600; font-size: 26px; margin: 0;">Stablecoin Whale Monitor v3</h3>
+            <span class="tag tag-outline">Live</span>
+          </div>
+          <p style="margin: 8px 0 16px; font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-neutral-600);">Event-driven platform on Google Cloud</p>
+          <p style="text-align: justify; hyphens: auto; font-size: 15.5px; line-height: 1.7; margin: 0 0 14px; max-width: 66ch;">A Terraform-managed GCP platform that indexes confirmed USDC and USDT transfers on Ethereum mainnet into immutable NDJSON objects in private Cloud Storage, and serves them from its own store rather than a third-party API. Generation-guarded checkpoints make crash recovery idempotent: a restart re-reads its own position instead of double-writing.</p>
+          <ul style="margin: 0 0 18px; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; font-size: 15.5px; line-height: 1.65;">
+            <li>Node.js indexer, Express API and Nodemailer alerter containerised with Docker. Continuous processing runs on a Cloud Run Worker Pool, with least-privilege Cloud Run services behind Pub/Sub OIDC push, Secret Manager, lifecycle retention, retries and dead-letter handling.</li>
+            <li>Statically exported Next.js and React dashboard served from a private GCS origin through a global HTTPS load balancer, Cloud CDN and Cloud Armor; /api/* routed to Cloud Run through a serverless NEG.</li>
+            <li>Approval-gated Cloud Build CI/CD with tests, typechecking, Terraform validation, immutable Artifact Registry digests, release-tag deployment and smoke tests.</li>
+            <li>Cloud Monitoring and Logging alerts on uptime, p99 latency, degraded health, Pub/Sub backlog, dead-letter depth and indexer liveness.</li>
+          </ul>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+            <a class="btn btn-primary" href="https://swm.josephdara.com/" target="_blank" rel="noreferrer">View live</a>
+            <a class="btn btn-secondary" href="https://github.com/Josephdara/stablecoin-whale-monitor" target="_blank" rel="noreferrer">Source</a>
+          </div>
+        </article>
+
+        <div data-reveal="rule" style="height: 1px; background: var(--color-divider);"></div>
+
+        <article data-reveal style="--reveal-opacity: 0.72;">
+          <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 12px;">
+            <h3 style="font-weight: 600; font-size: 26px; margin: 0;">Second project</h3>
+            <span class="tag tag-neutral">In progress</span>
+          </div>
+          <p style="margin: 8px 0 0; font-size: 15.5px; line-height: 1.7; max-width: 60ch;">Currently in build. This space is reserved for it.</p>
+        </article>
+
+      </div>
+    </section>
+
+    <section id="skills" class="section-split">
+      <div>
+        <div class="card-kicker" data-reveal style="font-variant-numeric: tabular-nums; margin-bottom: 10px;">03</div>
+        <h2 data-reveal style="font-weight: 400; font-size: clamp(28px, 3.4vw, 38px); letter-spacing: -0.02em; margin: 0;">Technical skills</h2>
+      </div>
+      <div style="display: flex; flex-direction: column;">
+
+        <div class="skill-row" data-reveal>
+          <div>Cloud platforms</div>
+          <div>
+            <span class="tag tag-neutral">Google Cloud (GCP)</span><span class="tag tag-neutral">Compute Engine</span><span class="tag tag-neutral">Cloud Run services &amp; worker pools</span><span class="tag tag-neutral">GKE</span><span class="tag tag-neutral">Cloud Storage</span><span class="tag tag-neutral">Artifact Registry</span><span class="tag tag-neutral">Cloud SQL</span><span class="tag tag-neutral">Pub/Sub</span><span class="tag tag-neutral">Cloud Build</span><span class="tag tag-neutral">Cloud Armor</span><span class="tag tag-neutral">Cloud CDN</span><span class="tag tag-neutral">Cloud Monitoring</span><span class="tag tag-neutral">Cloud Logging</span><span class="tag tag-neutral">Secret Manager</span><span class="tag tag-neutral">IAM</span><span class="tag tag-neutral">VPC</span>
+          </div>
+        </div>
+
+        <div class="skill-row" data-reveal>
+          <div>IaC, CI/CD &amp; automation</div>
+          <div>
+            <span class="tag tag-neutral">Terraform</span><span class="tag tag-neutral">Cloud Build</span><span class="tag tag-neutral">GitHub Actions</span><span class="tag tag-neutral">Docker</span><span class="tag tag-neutral">Kubernetes</span><span class="tag tag-neutral">Linux</span><span class="tag tag-neutral">Bash scripting</span><span class="tag tag-neutral">gcloud CLI</span><span class="tag tag-neutral">YAML</span><span class="tag tag-neutral">Approval-gated CI/CD</span><span class="tag tag-neutral">Immutable releases</span><span class="tag tag-neutral">Smoke testing</span>
+          </div>
+        </div>
+
+        <div class="skill-row" data-reveal>
+          <div>Languages &amp; runtime</div>
+          <div>
+            <span class="tag tag-neutral">TypeScript</span><span class="tag tag-neutral">JavaScript (Node.js)</span><span class="tag tag-neutral">Python</span><span class="tag tag-neutral">Solidity</span><span class="tag tag-neutral">Bash</span><span class="tag tag-neutral">pnpm</span>
+          </div>
+        </div>
+
+        <div class="skill-row" data-reveal>
+          <div>Networking</div>
+          <div>
+            <span class="tag tag-neutral">VPC design</span><span class="tag tag-neutral">Subnetting</span><span class="tag tag-neutral">Firewall rules</span><span class="tag tag-neutral">Ingress &amp; egress policy</span><span class="tag tag-neutral">DNS</span><span class="tag tag-neutral">Cloud NAT</span><span class="tag tag-neutral">Global HTTPS load balancing</span><span class="tag tag-neutral">Serverless NEGs</span><span class="tag tag-neutral">TLS &amp; certificate management</span>
+          </div>
+        </div>
+
+        <div class="skill-row" data-reveal>
+          <div>Security</div>
+          <div>
+            <span class="tag tag-neutral">IAM least privilege</span><span class="tag tag-neutral">Service accounts</span><span class="tag tag-neutral">Workload Identity</span><span class="tag tag-neutral">OIDC service authentication</span><span class="tag tag-neutral">Secret Manager</span><span class="tag tag-neutral">Network segmentation</span><span class="tag tag-neutral">Threat modelling</span><span class="tag tag-neutral">Static analysis</span><span class="tag tag-neutral">Secure SDLC</span>
+          </div>
+        </div>
+
+        <div class="skill-row" data-reveal>
+          <div>Data &amp; messaging</div>
+          <div>
+            <span class="tag tag-neutral">Cloud Storage (GCS)</span><span class="tag tag-neutral">Cloud SQL</span><span class="tag tag-neutral">Pub/Sub</span><span class="tag tag-neutral">Redis</span><span class="tag tag-neutral">NDJSON</span>
+          </div>
+        </div>
+
+        <div class="skill-row" data-reveal>
+          <div>Observability</div>
+          <div>
+            <span class="tag tag-neutral">Cloud Monitoring</span><span class="tag tag-neutral">Cloud Logging</span><span class="tag tag-neutral">Structured logging</span><span class="tag tag-neutral">Uptime checks</span><span class="tag tag-neutral">p99 latency</span><span class="tag tag-neutral">SLO &amp; alerting design</span><span class="tag tag-neutral">Pub/Sub backlog &amp; dead-letter monitoring</span>
+          </div>
+        </div>
+
+        <div class="skill-row" data-reveal>
+          <div>Web &amp; backend</div>
+          <div>
+            <span class="tag tag-neutral">Express</span><span class="tag tag-neutral">NestJS</span><span class="tag tag-neutral">Next.js</span><span class="tag tag-neutral">React</span><span class="tag tag-neutral">Nodemailer</span><span class="tag tag-neutral">REST APIs</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="experience" class="section-split">
+      <div>
+        <div class="card-kicker" data-reveal style="font-variant-numeric: tabular-nums; margin-bottom: 10px;">04</div>
+        <h2 data-reveal style="font-weight: 400; font-size: clamp(28px, 3.4vw, 38px); letter-spacing: -0.02em; margin: 0;">Experience</h2>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: clamp(30px, 4vw, 44px);">
+
+        <article data-reveal>
+          <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 10px;">
+            <h3 style="font-weight: 600; font-size: 23px; margin: 0;">Blockchain Security Engineer</h3>
+            <span style="font-size: 13px; letter-spacing: 0.04em; color: var(--color-neutral-600); font-variant-numeric: tabular-nums;">Feb 2025 - Jun 2026</span>
+          </div>
+          <p style="margin: 6px 0 14px; font-family: var(--font-heading); font-size: 17px; color: var(--color-accent-700);">Coinbase</p>
+          <ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 9px; font-size: 15.5px; line-height: 1.65;">
+            <li>Led smart contract security reviews for the Base-Solana Bridge, the x402 payment protocol, the Base Azul network upgrade and numerous other Coinbase core projects, assessing smart contract vulnerabilities, trust boundaries, cross-chain security failures, upgradeability issues, and integration and rollout risk.</li>
+            <li>Conducted 20+ ecosystem security reviews for protocols integrating with Base, defining remediation requirements and release gates before integration or launch.</li>
+            <li>Built and maintained internal AI-powered smart contract auditing tooling used across the security organisation to support repeatable review workflows.</li>
+            <li>Served on call for security incident response, triaging live security incidents and coordinating resolution across engineering and security teams.</li>
+          </ul>
+        </article>
+
+        <div data-reveal="rule" style="height: 1px; background: var(--color-divider);"></div>
+
+        <article data-reveal>
+          <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 10px;">
+            <h3 style="font-weight: 600; font-size: 23px; margin: 0;">Smart Contract Security Researcher</h3>
+            <span style="font-size: 13px; letter-spacing: 0.04em; color: var(--color-neutral-600); font-variant-numeric: tabular-nums;">Jan 2023 - Jan 2025</span>
+          </div>
+          <p style="margin: 6px 0 14px; font-family: var(--font-heading); font-size: 17px; color: var(--color-accent-700);">Independent · Code4rena, Cantina, Sherlock, Immunefi, Codehawks, QuillAudits</p>
+          <ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 9px; font-size: 15.5px; line-height: 1.65;">
+            <li>Completed 30+ smart contract security reviews, identifying 50 High- and Medium-severity vulnerabilities validated and accepted by protocol teams.</li>
+            <li>Reviewed a broad mix of DeFi and interoperability protocols including AMMs, lending markets, stablecoins, vaults, bridges and omnichain infrastructure, applying threat modelling and secure-SDLC analysis.</li>
+          </ul>
+        </article>
+
+        <div data-reveal="rule" style="height: 1px; background: var(--color-divider);"></div>
+
+        <article data-reveal>
+          <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 10px;">
+            <h3 style="font-weight: 600; font-size: 23px; margin: 0;">Developer Advocate</h3>
+            <span style="font-size: 13px; letter-spacing: 0.04em; color: var(--color-neutral-600); font-variant-numeric: tabular-nums;">Oct 2023 - Mar 2024</span>
+          </div>
+          <p style="margin: 6px 0 14px; font-family: var(--font-heading); font-size: 17px; color: var(--color-accent-700);">INTMAX</p>
+          <ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 9px; font-size: 15.5px; line-height: 1.65;">
+            <li>Contributed to zero-knowledge developer documentation for a ZK rollup, covering protocol concepts, integration guides and onboarding material for external teams building on the network.</li>
+            <li>Drove protocol education and developer onboarding through technical presentations at Google DevFest Lagos and Africa Tech Summit in Nairobi.</li>
+          </ul>
+        </article>
+
+        <div data-reveal="rule" style="height: 1px; background: var(--color-divider);"></div>
+
+        <article data-reveal>
+          <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 10px;">
+            <h3 style="font-weight: 600; font-size: 23px; margin: 0;">Blockchain Developer</h3>
+            <span style="font-size: 13px; letter-spacing: 0.04em; color: var(--color-neutral-600); font-variant-numeric: tabular-nums;">Sep 2022 - Jan 2023</span>
+          </div>
+          <p style="margin: 6px 0 14px; font-family: var(--font-heading); font-size: 17px; color: var(--color-accent-700);">Astra Metaverse</p>
+          <ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 9px; font-size: 15.5px; line-height: 1.65;">
+            <li>Designed and deployed ERC-1155 token contracts for a marketplace platform.</li>
+            <li>Built supporting Node.js and TypeScript APIs, integrating backend services with deployed contracts through Ethers.js and Wagmi.</li>
+          </ul>
+        </article>
+
+        <div data-reveal="rule" style="height: 1px; background: var(--color-divider);"></div>
+
+        <article data-reveal>
+          <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 10px;">
+            <h3 style="font-weight: 600; font-size: 23px; margin: 0;">Blockchain Developer</h3>
+            <span style="font-size: 13px; letter-spacing: 0.04em; color: var(--color-neutral-600); font-variant-numeric: tabular-nums;">May 2022 - Sep 2022</span>
+          </div>
+          <p style="margin: 6px 0 14px; font-family: var(--font-heading); font-size: 17px; color: var(--color-accent-700);">Collect Waves</p>
+          <ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 9px; font-size: 15.5px; line-height: 1.65;">
+            <li>Built NFT and marketplace contracts with ERC-20 token integration, and the API services supporting them.</li>
+            <li>Delivered the full application stack around the contracts: a frontend connected to on-chain state, and Node.js and TypeScript REST APIs for off-chain data.</li>
+          </ul>
+        </article>
+
+      </div>
+    </section>
+
+    <section id="writing" class="section-split">
+      <div>
+        <div class="card-kicker" data-reveal style="font-variant-numeric: tabular-nums; margin-bottom: 10px;">05</div>
+        <h2 data-reveal style="font-weight: 400; font-size: clamp(28px, 3.4vw, 38px); letter-spacing: -0.02em; margin: 0;">Writing &amp; speaking</h2>
+      </div>
+      <div style="display: flex; flex-direction: column;">
+
+        <div data-reveal style="display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: baseline; padding: 18px 0; border-bottom: 1px solid var(--color-divider);">
+          <div>
+            <div style="font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent-700); margin-bottom: 6px;">Article · Hashnode · Stablecoin Whale Monitor</div>
+            <a href="https://josephdara.hashnode.dev/gcp-swm-1-vm" target="_blank" rel="noreferrer" class="link-title">Building and Deploying a Blockchain Indexer on Google Cloud</a>
+          </div>
+        </div>
+
+        <div data-reveal style="display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: baseline; padding: 18px 0; border-bottom: 1px solid var(--color-divider);">
+          <div>
+            <div style="font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent-700); margin-bottom: 6px;">Article · Hashnode · Stablecoin Whale Monitor</div>
+            <a href="https://josephdara.hashnode.dev/gcp-swm-2-cloudrun-gke" target="_blank" rel="noreferrer" class="link-title">From Two VMs to Cloud Run: Evolving My Blockchain Indexer on Google Cloud</a>
+          </div>
+        </div>
+
+        <div data-reveal style="display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: baseline; padding: 18px 0; border-bottom: 1px solid var(--color-divider);">
+          <div>
+            <div style="font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent-700); margin-bottom: 6px;">Article · Hashnode · Stablecoin Whale Monitor</div>
+            <a href="https://josephdara.hashnode.dev/gcp-swm-3-terraform" target="_blank" rel="noreferrer" class="link-title">From Cloud Run Experiment to Terraform-Managed Platform: Productionizing My Blockchain Indexer on Google Cloud</a>
+          </div>
+        </div>
+
+        <div data-reveal style="display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: baseline; padding: 18px 0; border-bottom: 1px solid var(--color-divider);">
+          <div>
+            <div style="font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent-700); margin-bottom: 6px;">Talk · DeFi Security Summit</div>
+            <div style="font-family: var(--font-heading); font-size: 21px; line-height: 1.25;">Speaker, representing the Coinbase Security team</div>
+          </div>
+          <span style="font-size: 13px; color: var(--color-neutral-600); font-variant-numeric: tabular-nums;">2025</span>
+        </div>
+
+        <div data-reveal style="display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: baseline; padding: 18px 0;">
+          <div>
+            <div style="font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent-700); margin-bottom: 6px;">Talks · Google DevFest Lagos · Africa Tech Summit Nairobi</div>
+            <div style="font-family: var(--font-heading); font-size: 21px; line-height: 1.25;">Protocol education and developer onboarding</div>
+          </div>
+          <span style="font-size: 13px; color: var(--color-neutral-600); font-variant-numeric: tabular-nums;">2023 - 2024</span>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="section-split">
+      <div>
+        <div class="card-kicker" data-reveal style="font-variant-numeric: tabular-nums; margin-bottom: 10px;">06</div>
+        <h2 data-reveal style="font-weight: 400; font-size: clamp(28px, 3.4vw, 38px); letter-spacing: -0.02em; margin: 0;">Education</h2>
+      </div>
+      <div data-reveal style="display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: baseline;">
+        <div>
+          <h3 style="font-weight: 600; font-size: 23px; margin: 0 0 6px;">B.Sc. Mathematics</h3>
+          <p style="margin: 0; font-size: 15px; color: var(--color-neutral-700);">Federal University of Agriculture, Abeokuta, Nigeria</p>
+        </div>
+        <span style="font-size: 13px; letter-spacing: 0.04em; color: var(--color-neutral-600); font-variant-numeric: tabular-nums;">2018 - 2022</span>
+      </div>
+    </section>
+
+    <section style="border-top: 1px solid var(--color-divider); padding: clamp(52px, 8vw, 96px) 0;">
+      <h2 data-reveal style="font-weight: 400; font-size: clamp(32px, 5vw, 56px); letter-spacing: -0.025em; margin: 0; max-width: 24ch; line-height: 1.05;">Hiring for cloud infrastructure? Let's talk.</h2>
+      <div data-reveal style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 30px;">
+        <a class="btn btn-primary" href="mailto:jsatimehin@gmail.com" style="font-size: 14.5px; padding: 12px 22px;">jsatimehin@gmail.com</a>
+        <a class="btn btn-secondary" href="https://linkedin.com/in/joseph-olutimehin" target="_blank" rel="noreferrer" style="font-size: 14.5px; padding: 12px 20px;">LinkedIn</a>
+        <a class="btn btn-secondary" href="./Joseph_Olutimehin_Resume.pdf" style="font-size: 14.5px; padding: 12px 20px;">Résumé (PDF)</a>
+      </div>
+    </section>
+
+    <footer style="border-top: 1px solid var(--color-divider); padding: 28px 0 44px; display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center; font-size: 13px; color: var(--color-neutral-600);">
+      <span>© 2026 Joseph Olutimehin · Toronto, ON</span>
+      <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+        <a href="mailto:jsatimehin@gmail.com" style="color: inherit; text-decoration: none;">Email</a>
+        <a href="https://github.com/josephdara" target="_blank" rel="noreferrer" style="color: inherit; text-decoration: none;">GitHub</a>
+        <a href="https://linkedin.com/in/joseph-olutimehin" target="_blank" rel="noreferrer" style="color: inherit; text-decoration: none;">LinkedIn</a>
+        <a href="https://twitter.com/jhoe0x" target="_blank" rel="noreferrer" style="color: inherit; text-decoration: none;">Twitter</a>
+      </div>
+    </footer>
+
+  </div>
+</div>
+
+<script>
+  (function () {
+    // Reveal on scroll: rules wipe in from the left, everything else lifts.
+    var targets = document.querySelectorAll('[data-reveal]');
+    if (!('IntersectionObserver' in window)) {
+      targets.forEach(function (el) { el.classList.add('is-visible'); });
+    } else {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (!e.isIntersecting) return;
+          e.target.classList.add('is-visible');
+          io.unobserve(e.target);
+        });
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+      targets.forEach(function (el) { io.observe(el); });
+    }
+
+    // Credly badge embed: the widget iframe reserves more height than the
+    // badge needs, so trim it once it has rendered.
+    function trimCredly() {
+      var f = document.querySelector('[data-credly-mount] iframe');
+      if (f) f.style.height = '212px';
+    }
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://cdn.credly.com/assets/utilities/embed.js';
+    document.body.appendChild(s);
+    [900, 1800, 3000].forEach(function (ms) { setTimeout(trimCredly, ms); });
+  })();
+</script>
 
 </body>
 </html>
