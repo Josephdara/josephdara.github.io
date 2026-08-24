@@ -208,9 +208,24 @@
 
         <div data-reveal="rule" style="height: 1px; background: var(--color-divider);"></div>
 
+        <article data-reveal>
+          <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 12px;">
+            <h3 style="font-weight: 600; font-size: 26px; margin: 0;">Bank Shared VPC &amp; PSC</h3>
+            <span class="tag tag-neutral">Repo</span>
+          </div>
+          <p style="margin: 8px 0 16px; font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-neutral-600);">Multi-project network architecture on Google Cloud</p>
+          <p style="text-align: justify; hyphens: auto; font-size: 15.5px; line-height: 1.7; margin: 0 0 14px; max-width: 66ch;">Banking-style four-project GCP build. Shared VPC with subnet-level IAM delegation, identity-based firewall rules, an internal passthrough load balancer published to a partner VPC over Private Service Connect, and VPC Flow Logs aggregated into BigQuery. All provisioned with Terraform.</p>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+            <a class="btn btn-primary" href="https://github.com/Josephdara/bank-shared-vpc-psc" target="_blank" rel="noreferrer">Source</a>
+            <a class="btn btn-secondary" href="https://josephdara.hashnode.dev/networking-psc" target="_blank" rel="noreferrer">Write-up</a>
+          </div>
+        </article>
+
+        <div data-reveal="rule" style="height: 1px; background: var(--color-divider);"></div>
+
         <article data-reveal style="--reveal-opacity: 0.72;">
           <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 12px;">
-            <h3 style="font-weight: 600; font-size: 26px; margin: 0;">Second project</h3>
+            <h3 style="font-weight: 600; font-size: 26px; margin: 0;">Third project</h3>
             <span class="tag tag-neutral">In progress</span>
           </div>
           <p style="margin: 8px 0 0; font-size: 15.5px; line-height: 1.7; max-width: 60ch;">Currently in build. This space is reserved for it.</p>
@@ -390,6 +405,13 @@
           <div>
             <div style="font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent-700); margin-bottom: 6px;">Article · Hashnode · Stablecoin Whale Monitor</div>
             <a href="https://josephdara.hashnode.dev/gcp-swm-3-terraform" target="_blank" rel="noreferrer" class="link-title">From Cloud Run Experiment to Terraform-Managed Platform: Productionizing My Blockchain Indexer on Google Cloud</a>
+          </div>
+        </div>
+
+        <div data-reveal style="display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: baseline; padding: 18px 0; border-bottom: 1px solid var(--color-divider);">
+          <div>
+            <div style="font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent-700); margin-bottom: 6px;">Article · Hashnode · Bank Shared VPC &amp; PSC</div>
+            <a href="https://josephdara.hashnode.dev/networking-psc" target="_blank" rel="noreferrer" class="link-title">Enterprise GCP Networking in Practice: Shared VPC for Governance, Private Service Connect for Isolation</a>
           </div>
         </div>
 
