@@ -1,506 +1,897 @@
 <!DOCTYPE html>
-<html lang="en" data-ground="colophon">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Joseph Olutimehin | Cloud Engineer</title>
-  <meta name="description" content="Google Cloud Certified Associate Cloud Engineer in Toronto. Infrastructure, IAM and networking on Google Cloud, provisioned with Terraform and released through approval-gated Cloud Build pipelines.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="./styles.css">
-  <script>document.documentElement.classList.add('js');</script>
-  <style>
-    html { scroll-behavior: smooth; }
-    body { -webkit-font-smoothing: antialiased; }
-    a:hover { color: var(--color-accent-700); }
-
-    /* grounds: the design's Appearance prop, resolved at author time.
-       Swap the data-ground value on <html> to change the paper. */
-    :root[data-ground="paper"] { --color-bg: #f3f2f2; }
-    :root[data-ground="bone"]  { --color-bg: #f8f4f4; }
-    :root[data-ground="linen"] { --color-bg: #eae9e9; --color-surface: #e0dedd; }
-    :root[data-ground="colophon"] {
-      --color-bg: #1a1918;
-      --color-surface: #2d2b2b;
-      --color-text: #f3f2f2;
-      --color-divider: color-mix(in srgb, #f3f2f2 22%, transparent);
-      --color-neutral-100: #2d2b2b;
-      --color-neutral-600: #bab6b6;
-      --color-neutral-700: #d7d3d3;
-      --color-neutral-800: #eae7e7;
-      --color-accent-100: #3a270d;
-      --color-accent-700: #e1ad66;
-      --color-accent-800: #ffe3bf;
-    }
-
-    /* reveal on scroll */
-    [data-reveal] { opacity: var(--reveal-opacity, 1); }
-    .js [data-reveal] {
-      will-change: opacity, transform;
-      transition: opacity 700ms ease, transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
-    }
-    .js [data-reveal]:not(.is-visible) { opacity: 0; transform: translateY(14px); }
-    .js [data-reveal="rule"] {
-      transform-origin: left center;
-      transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
-    }
-    .js [data-reveal="rule"]:not(.is-visible) { opacity: var(--reveal-opacity, 1); transform: scaleX(0); }
-    @media (prefers-reduced-motion: reduce) {
-      .js [data-reveal] { transition: none; }
-      .js [data-reveal]:not(.is-visible) { opacity: var(--reveal-opacity, 1); transform: none; }
-    }
-
-    /* layout */
-    .shell { max-width: 1080px; margin: 0 auto; padding: 0 max(28px, 4vw); }
-    .topbar {
-      position: sticky; top: 0; z-index: 30;
-      background: color-mix(in srgb, var(--color-bg) 90%, transparent);
-      backdrop-filter: blur(8px);
-      padding: 14px max(28px, 4vw);
-    }
-    .nav-links {
-      display: flex; align-items: center; flex-wrap: wrap; gap: 26px;
-      font-size: 13.5px; letter-spacing: 0.02em;
-    }
-    section[id] { scroll-margin-top: 72px; } /* clear the sticky nav on anchor jumps */
-    .section-split {
-      border-top: 1px solid var(--color-divider);
-      padding: clamp(48px, 7vw, 84px) 0;
-      display: grid;
-      grid-template-columns: minmax(0, 200px) minmax(0, 1fr);
-      gap: clamp(24px, 5vw, 56px);
-    }
-    .skill-row {
-      display: grid; grid-template-columns: minmax(0, 160px) minmax(0, 1fr);
-      gap: 8px 24px; padding: 16px 0;
-      border-bottom: 1px solid var(--color-divider);
-    }
-    .skill-row:last-child { border-bottom: 0; }
-    .skill-row > :first-child { font-family: var(--font-heading); font-size: 16px; }
-    .skill-row > :last-child { display: flex; flex-wrap: wrap; gap: 6px; }
-    .link-title {
-      display: block; color: inherit; text-decoration: none;
-      font-family: var(--font-heading); font-size: 21px; line-height: 1.25;
-    }
-    .link-title:hover { text-decoration: underline; text-underline-offset: 4px; }
-    .credly-mount {
-      background: #f8f4f4; border: 1px solid var(--color-divider); padding: 3px;
-      width: 336px; max-width: 100%;
-      display: flex; align-items: flex-start; justify-content: center; overflow: hidden;
-    }
-    .credly-mount iframe { display: block; vertical-align: top; height: 212px; }
-
-    @media (max-width: 760px) {
-      .nav-links { gap: 14px 18px; }
-      .section-split { grid-template-columns: minmax(0, 1fr); gap: 20px; }
-    }
-    @media (max-width: 560px) {
-      .skill-row { grid-template-columns: minmax(0, 1fr); }
-      /* The full link set wraps to three rows here, too much to pin. */
-      .topbar { position: static; flex-wrap: wrap; padding-block: 12px; }
-      .nav-brand { width: 100%; margin-right: 0; }
-      .nav-links { gap: 12px 16px; font-size: 13px; }
-    }
-  </style>
-</head>
-<body>
-
-<div style="background: var(--color-bg); color: var(--color-text); min-height: 100vh;">
-
-  <nav class="nav topbar">
-    <span class="nav-brand" style="font-size: 17px; letter-spacing: 0.01em;">Joseph Olutimehin</span>
-    <div class="nav-links">
-      <a href="#certification">Certification</a>
-      <a href="#projects">Projects</a>
-      <a href="#skills">Skills</a>
-      <a href="#experience">Experience</a>
-      <a href="#writing">Writing</a>
-      <a class="btn btn-primary" href="./Joseph_Olutimehin_Resume.pdf" style="font-size: 13px;">Résumé</a>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Joseph Olutimehin | Cloud Engineer
+  </title>
+  <meta content="Joseph Olutimehin is a Google Cloud Certified Associate Cloud Engineer in Toronto, building cloud infrastructure with Terraform and a background in security engineering at Coinbase." name="description"/>
+  <link href="https://josephdara.com/" rel="canonical"/>
+  <script>
+   (() => {
+      let preference = 'system';
+      try { preference = localStorage.getItem('jd-appearance') || 'system'; } catch (_) {}
+      if (!['light', 'dark', 'system'].includes(preference)) preference = 'system';
+      document.documentElement.dataset.themePreference = preference;
+      if (preference !== 'system') document.documentElement.dataset.theme = preference;
+    })();
+  </script>
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&amp;family=Instrument+Serif:ital@0;1&amp;display=swap" rel="stylesheet"/>
+  <link href="./styles.css" rel="stylesheet"/>
+  <script defer="" src="./theme.js">
+  </script>
+ </head>
+ <body>
+  <a class="skip-link" href="#main">
+   Skip to content
+  </a>
+  <header class="site-header">
+   <div class="header-inner">
+    <a aria-label="Joseph Olutimehin, home" class="brand" href="#main">
+     <span aria-hidden="true" class="monogram">
+      jo.
+     </span>
+     Joseph Olutimehin
+    </a>
+    <nav aria-label="Main navigation" class="primary-nav">
+     <a href="#projects">
+      Work
+     </a>
+     <a href="#experience">
+      Experience
+     </a>
+     <a href="#writing">
+      Writing
+     </a>
+     <a href="#about">
+      About
+     </a>
+     <a href="./Joseph_Olutimehin_Resume.pdf">
+      Résumé
+      <span aria-hidden="true">
+       ↗
+      </span>
+     </a>
+    </nav>
+    <label class="theme-control" hidden="">
+     <span class="sr-only">
+      Appearance
+     </span>
+     <select id="appearance">
+      <option value="system">
+       System
+      </option>
+      <option value="light">
+       Light
+      </option>
+      <option value="dark">
+       Dark
+      </option>
+     </select>
+    </label>
+   </div>
+  </header>
+  <main class="shell" id="main">
+   <section aria-labelledby="hero-title" class="hero">
+    <p class="eyebrow">
+     Cloud engineer · Toronto, Canada
+    </p>
+    <h1 id="hero-title">
+     Cloud infrastructure.
+     <br/>
+     <em>
+      Built with a security mindset.
+     </em>
+    </h1>
+    <p class="hero-copy">
+     I'm Joseph. I build on Google Cloud with Terraform and Cloud Build, bringing experience in security engineering at Coinbase to the systems I design and operate.
+    </p>
+    <div class="actions">
+     <a class="button" href="#projects">
+      Explore my work
+      <span aria-hidden="true">
+       ↓
+      </span>
+     </a>
+     <a class="text-link" href="mailto:jsatimehin@gmail.com">
+      Get in touch
+      <span aria-hidden="true">
+       ↗
+      </span>
+     </a>
     </div>
-  </nav>
-
-  <div class="shell">
-
-    <section style="padding: clamp(56px, 9vw, 116px) 0 clamp(44px, 6vw, 80px);">
-      <div data-reveal style="display: flex; align-items: center; gap: 14px; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-accent-700); font-variant-numeric: tabular-nums;">
-        <span>Cloud Engineer</span>
-        <span style="width: 46px; height: 1px; background: var(--color-accent); display: block;"></span>
-        <span>Toronto, ON</span>
+   </section>
+   <section class="certification-feature" id="certification" aria-labelledby="certification-title">
+    <div>
+     <p class="eyebrow">Google Cloud certification</p>
+     <h2 id="certification-title">Associate Cloud Engineer</h2>
+     <p class="certification-dates">Issued 27 July 2026 · Valid through 27 July 2029</p>
+     <details class="certification-id">
+      <summary>Certification ID</summary>
+      <p>0e97354c793b4d6ea3186b77d3674f48</p>
+     </details>
+    </div>
+    <div class="certification-actions">
+     <a class="button" href="https://www.credly.com/badges/9600f599-8fd9-478e-bba6-6ac2f97716d9" rel="noopener noreferrer" target="_blank">Verify credential ↗</a>
+    </div>
+   </section>
+   <section aria-labelledby="projects-title" class="section" id="projects">
+    <div class="section-heading">
+     <div>
+      <p class="eyebrow">
+       01 / Selected work
+      </p>
+      <h2 id="projects-title">
+       Infrastructure in practice.
+      </h2>
+     </div>
+     <p>
+      Systems I've built, the decisions behind them, and the code that makes them work.
+     </p>
+    </div>
+    <div class="project-grid">
+     <article class="project-card">
+      <div aria-label="The indexer writes to private Cloud Storage, which the Cloud Run API reads." class="architecture" role="img">
+       <div class="architecture-node">
+        <strong>
+         Indexer
+        </strong>
+        <span>
+         Worker pool
+        </span>
+       </div>
+       <span aria-hidden="true" class="architecture-arrow">
+        →
+       </span>
+       <div class="architecture-node">
+        <strong>
+         Storage
+        </strong>
+        <span>
+         Private GCS
+        </span>
+       </div>
+       <span aria-hidden="true" class="architecture-arrow">
+        →
+       </span>
+       <div class="architecture-node">
+        <strong>
+         API
+        </strong>
+        <span>
+         Cloud Run
+        </span>
+       </div>
       </div>
-      <h1 data-reveal style="font-weight: 400; font-size: clamp(52px, 9vw, 104px); line-height: 0.96; letter-spacing: -0.03em; margin: 22px 0 0;">Joseph<br>Olutimehin</h1>
-      <p data-reveal style="font-family: var(--font-heading); font-size: clamp(20px, 2.4vw, 27px); font-style: italic; line-height: 1.3; margin: 26px 0 0; max-width: 22ch; color: var(--color-neutral-800);">Google Cloud Certified Associate Cloud Engineer.</p>
-
-      <hr class="hr" data-reveal="rule" style="margin: clamp(32px, 5vw, 52px) 0;">
-
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: clamp(24px, 4vw, 52px);">
-        <p data-reveal style="text-align: justify; hyphens: auto; font-size: 16.5px; line-height: 1.72; margin: 0;">I build cloud infrastructure on GCP using Terraform and Cloud Build. Before shifting to full-time cloud work, I spent four years in security engineering and backend development, most recently at Coinbase, where I audited payment protocols, bridges, and network upgrades securing billions of dollars.</p>
-        <p data-reveal style="text-align: justify; hyphens: auto; font-size: 16.5px; line-height: 1.72; margin: 0;">That high-stakes background shaped how I approach cloud architecture today: minimal IAM permissions, private-by-default networking, and observability configured long before the first production incident occurs.</p>
+      <div class="project-body">
+       <p class="card-meta">
+        Google Cloud · Terraform · Live project
+       </p>
+       <h3>
+        Stablecoin Whale Monitor v3
+       </h3>
+       <p>
+        A cloud platform that indexes confirmed USDC and USDT transfers on Ethereum into immutable objects in private Cloud Storage, then serves the data from its own store.
+       </p>
+       <ul class="project-points">
+        <li>
+         Crash-safe checkpoints and idempotent processing.
+        </li>
+        <li>
+         Cloud Run services, a continuous Worker Pool, and Pub/Sub alerts.
+        </li>
+        <li>
+         A Next.js dashboard behind Cloud CDN and Cloud Armor.
+        </li>
+        <li>
+         Approval-gated releases, immutable images, and operational monitoring.
+        </li>
+       </ul>
+       <div class="project-links">
+        <a href="https://swm.josephdara.com/" rel="noopener noreferrer" target="_blank">
+         Live project ↗
+        </a>
+        <a href="https://github.com/Josephdara/stablecoin-whale-monitor" rel="noopener noreferrer" target="_blank">
+         Source ↗
+        </a>
+        <a href="https://josephdara.hashnode.dev/gcp-swm-3-terraform" rel="noopener noreferrer" target="_blank">
+         Write-up ↗
+        </a>
+       </div>
       </div>
-
-      <div data-reveal style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: clamp(30px, 4vw, 44px);">
-        <a class="btn btn-primary" href="./Joseph_Olutimehin_Resume.pdf" style="font-size: 14.5px; padding: 12px 22px;">Download résumé (PDF)</a>
-        <a class="btn btn-secondary" href="mailto:jsatimehin@gmail.com" style="font-size: 14.5px; padding: 12px 20px;">jsatimehin@gmail.com</a>
-        <a class="btn btn-secondary" href="https://github.com/josephdara" target="_blank" rel="noreferrer" style="font-size: 14.5px; padding: 12px 20px;">GitHub</a>
-        <a class="btn btn-secondary" href="https://linkedin.com/in/joseph-olutimehin" target="_blank" rel="noreferrer" style="font-size: 14.5px; padding: 12px 20px;">LinkedIn</a>
+     </article>
+     <article class="project-card">
+      <div aria-label="A service in the Shared VPC is exposed through Private Service Connect to a partner VPC." class="architecture" role="img">
+       <div class="architecture-node">
+        <strong>
+         Shared VPC
+        </strong>
+        <span>
+         Producer service
+        </span>
+       </div>
+       <span aria-hidden="true" class="architecture-arrow">
+        →
+       </span>
+       <div class="architecture-node">
+        <strong>
+         PSC
+        </strong>
+        <span>
+         Private access
+        </span>
+       </div>
+       <span aria-hidden="true" class="architecture-arrow">
+        →
+       </span>
+       <div class="architecture-node">
+        <strong>
+         Partner
+        </strong>
+        <span>
+         VPC
+        </span>
+       </div>
       </div>
-    </section>
-
-    <section id="certification" class="section-split">
-      <div>
-        <div class="card-kicker" data-reveal style="font-variant-numeric: tabular-nums; margin-bottom: 10px;">01</div>
-        <h2 data-reveal style="font-weight: 400; font-size: clamp(28px, 3.4vw, 38px); letter-spacing: -0.02em; margin: 0;">Certification</h2>
+      <div class="project-body">
+       <p class="card-meta">
+        Networking · IAM · Terraform
+       </p>
+       <h3>
+        Bank Shared VPC &amp; PSC
+       </h3>
+       <p>
+        A banking-style, four-project Google Cloud network that brings centralized governance and private service access together. Provisioned entirely with Terraform.
+       </p>
+       <ul class="project-points">
+        <li>
+         Shared VPC with subnet-level IAM delegation.
+        </li>
+        <li>
+         Identity-based firewall rules and an internal load balancer.
+        </li>
+        <li>
+         Private Service Connect access from a partner VPC.
+        </li>
+        <li>
+         VPC Flow Logs aggregated into BigQuery.
+        </li>
+       </ul>
+       <div class="project-links">
+        <a href="https://josephdara.hashnode.dev/networking-psc" rel="noopener noreferrer" target="_blank">
+         Read the write-up ↗
+        </a>
+        <a href="https://github.com/Josephdara/bank-shared-vpc-psc" rel="noopener noreferrer" target="_blank">
+         Source ↗
+        </a>
+       </div>
       </div>
-      <div>
-        <div data-reveal style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: clamp(20px, 4vw, 44px); align-items: start;">
-          <div>
-            <h3 style="font-weight: 600; font-size: 25px; margin: 0 0 6px;">Associate Cloud Engineer</h3>
-            <p style="margin: 0 0 18px; font-size: 15px; color: var(--color-neutral-700);">Google Cloud</p>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px 28px; font-variant-numeric: tabular-nums;">
-              <div>
-                <div style="font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-neutral-600); margin-bottom: 4px;">Issued</div>
-                <div style="font-family: var(--font-heading); font-size: 17px;">27 July 2026</div>
-              </div>
-              <div>
-                <div style="font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-neutral-600); margin-bottom: 4px;">Expires</div>
-                <div style="font-family: var(--font-heading); font-size: 17px;">27 July 2029</div>
-              </div>
-            </div>
-            <div style="margin-top: 18px;">
-              <div style="font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-neutral-600); margin-bottom: 4px;">Certification ID</div>
-              <div style="font-family: var(--font-heading); font-size: 13.5px; word-break: break-all; font-variant-numeric: tabular-nums; color: var(--color-neutral-800);">0e97354c793b4d6ea3186b77d3674f48</div>
-            </div>
-            <div style="margin-top: 20px;">
-              <a class="btn btn-primary" href="https://www.credly.com/badges/9600f599-8fd9-478e-bba6-6ac2f97716d9" target="_blank" rel="noreferrer">Verify credential</a>
-            </div>
-          </div>
-          <div class="credly-mount" data-credly-mount>
-            <div data-iframe-width="330" data-iframe-height="330" data-share-badge-id="9600f599-8fd9-478e-bba6-6ac2f97716d9" data-share-badge-host="https://www.credly.com"></div>
-          </div>
-        </div>
+     </article>
+    </div>
+   </section>
+   <section aria-labelledby="experience-title" class="section" id="experience">
+    <div class="section-heading">
+     <div>
+      <p class="eyebrow">
+       02 / Experience
+      </p>
+      <h2 id="experience-title">
+       A foundation in security.
+      </h2>
+     </div>
+     <a class="text-link" href="./Joseph_Olutimehin_Resume.pdf">
+      Download résumé (PDF) ↗
+     </a>
+    </div>
+    <div class="experience-list">
+     <article class="experience-row">
+      <p class="experience-date">
+       Jun 2026 - Present
+      </p>
+      <div class="experience-role">
+       <h3>
+        Cloud Platform Engineer
+       </h3>
+       <p class="company">
+        Stablecoin Whale Monitor · Self-employed
+       </p>
+       <ul class="role-points">
+        <li>
+         Designed, built, and operate a live Google Cloud platform that monitors large USDC and USDT transfers on Ethereum, evolving it from Compute Engine VMs to Cloud Run/GKE and a Terraform-managed serverless architecture.
+        </li>
+        <li>
+         Built modular infrastructure using Cloud Run, Cloud Run Worker Pools, Cloud Storage, a global external Application Load Balancer, Cloud CDN, Cloud Armor, IAM, Secret Manager, and Cloud Monitoring.
+        </li>
+       </ul>
+       <details class="role-details">
+        <summary>
+         More about this role
+        </summary>
+        <ul class="role-points">
+         <li>
+          Implemented approval-gated CI/CD with Cloud Build, immutable container releases, automated testing, and deployment smoke tests.
+         </li>
+         <li>
+          Applied least-privilege IAM, private storage, secured ingress, and workload-specific service accounts.
+         </li>
+         <li>
+          Improved reliability through crash-safe checkpointing, idempotent processing, observability, and production incident troubleshooting.
+         </li>
+        </ul>
+       </details>
       </div>
-    </section>
-
-    <section id="projects" class="section-split">
-      <div>
-        <div class="card-kicker" data-reveal style="font-variant-numeric: tabular-nums; margin-bottom: 10px;">02</div>
-        <h2 data-reveal style="font-weight: 400; font-size: clamp(28px, 3.4vw, 38px); letter-spacing: -0.02em; margin: 0;">Cloud projects</h2>
+     </article>
+     <article class="experience-row">
+      <p class="experience-date">
+       Feb 2025 - Jun 2026
+      </p>
+      <div class="experience-role">
+       <h3>
+        Security Engineer
+       </h3>
+       <p class="company">
+        Coinbase
+       </p>
+       <ul class="role-points">
+        <li>
+         Led smart contract security reviews for the Base-Solana Bridge, the x402 payment protocol, the Base Azul network upgrade and numerous other Coinbase core projects, assessing smart contract vulnerabilities, trust boundaries, cross-chain security failures, upgradeability issues, and integration and rollout risk.
+        </li>
+        <li>
+         Built and maintained internal AI-powered smart contract auditing tooling used across the security organisation to support repeatable review workflows.
+        </li>
+       </ul>
+       <details class="role-details">
+        <summary>
+         More about this role
+        </summary>
+        <ul class="role-points">
+         <li>
+          Conducted multiple ecosystem security reviews for protocols integrating with Base, flagged multiple issues, and provided vulnerability fixes.
+         </li>
+         <li>
+          Served on call for security incident response, triaging live security incidents and coordinating resolution across engineering and security teams.
+         </li>
+        </ul>
+       </details>
       </div>
-      <div style="display: flex; flex-direction: column; gap: clamp(28px, 4vw, 44px);">
-
-        <article data-reveal>
-          <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 12px;">
-            <h3 style="font-weight: 600; font-size: 26px; margin: 0;">Stablecoin Whale Monitor v3</h3>
-            <span class="tag tag-outline">Live</span>
-          </div>
-          <p style="margin: 8px 0 16px; font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-neutral-600);">Event-driven platform on Google Cloud</p>
-          <p style="text-align: justify; hyphens: auto; font-size: 15.5px; line-height: 1.7; margin: 0 0 14px; max-width: 66ch;">A Terraform-managed GCP platform that indexes confirmed USDC and USDT transfers on Ethereum mainnet into immutable NDJSON objects in private Cloud Storage, and serves them from its own store rather than a third-party API. Generation-guarded checkpoints make crash recovery idempotent: a restart re-reads its own position instead of double-writing.</p>
-          <ul style="margin: 0 0 18px; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; font-size: 15.5px; line-height: 1.65;">
-            <li>Node.js indexer, Express API and Nodemailer alerter containerised with Docker. Continuous processing runs on a Cloud Run Worker Pool, with least-privilege Cloud Run services behind Pub/Sub OIDC push, Secret Manager, lifecycle retention, retries and dead-letter handling.</li>
-            <li>Statically exported Next.js and React dashboard served from a private GCS origin through a global HTTPS load balancer, Cloud CDN and Cloud Armor; /api/* routed to Cloud Run through a serverless NEG.</li>
-            <li>Approval-gated Cloud Build CI/CD with tests, typechecking, Terraform validation, immutable Artifact Registry digests, release-tag deployment and smoke tests.</li>
-            <li>Cloud Monitoring and Logging alerts on uptime, p99 latency, degraded health, Pub/Sub backlog, dead-letter depth and indexer liveness.</li>
-          </ul>
-          <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-            <a class="btn btn-primary" href="https://swm.josephdara.com/" target="_blank" rel="noreferrer">View live</a>
-            <a class="btn btn-secondary" href="https://github.com/Josephdara/stablecoin-whale-monitor" target="_blank" rel="noreferrer">Source</a>
-          </div>
-        </article>
-
-        <div data-reveal="rule" style="height: 1px; background: var(--color-divider);"></div>
-
-        <article data-reveal>
-          <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 12px;">
-            <h3 style="font-weight: 600; font-size: 26px; margin: 0;">Bank Shared VPC &amp; PSC</h3>
-            <span class="tag tag-neutral">Repo</span>
-          </div>
-          <p style="margin: 8px 0 16px; font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-neutral-600);">Multi-project network architecture on Google Cloud</p>
-          <p style="text-align: justify; hyphens: auto; font-size: 15.5px; line-height: 1.7; margin: 0 0 14px; max-width: 66ch;">Banking-style four-project GCP build. Shared VPC with subnet-level IAM delegation, identity-based firewall rules, an internal passthrough load balancer published to a partner VPC over Private Service Connect, and VPC Flow Logs aggregated into BigQuery. All provisioned with Terraform.</p>
-          <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-            <a class="btn btn-primary" href="https://github.com/Josephdara/bank-shared-vpc-psc" target="_blank" rel="noreferrer">Source</a>
-            <a class="btn btn-secondary" href="https://josephdara.hashnode.dev/networking-psc" target="_blank" rel="noreferrer">Write-up</a>
-          </div>
-        </article>
-
+     </article>
+     <article class="experience-row">
+      <p class="experience-date">
+       Jan 2023 - Jan 2025
+      </p>
+      <div class="experience-role">
+       <h3>
+        Independent Security Researcher
+       </h3>
+       <p class="company">
+        Independent · Code4rena, Cantina, Sherlock, Immunefi, Codehawks, QuillAudits
+       </p>
+       <ul class="role-points">
+        <li>
+         Completed 30+ smart contract security reviews, identifying 50 High- and Medium-severity vulnerabilities validated and accepted by protocol teams.
+        </li>
+        <li>
+         Reviewed a broad mix of DeFi and interoperability protocols including AMMs, lending markets, stablecoins, vaults, bridges and omnichain infrastructure, applying threat modelling and secure-SDLC analysis.
+        </li>
+       </ul>
       </div>
-    </section>
-
-    <section id="skills" class="section-split">
-      <div>
-        <div class="card-kicker" data-reveal style="font-variant-numeric: tabular-nums; margin-bottom: 10px;">03</div>
-        <h2 data-reveal style="font-weight: 400; font-size: clamp(28px, 3.4vw, 38px); letter-spacing: -0.02em; margin: 0;">Technical skills</h2>
+     </article>
+     <article class="experience-row">
+      <p class="experience-date">
+       Oct 2023 - Apr 2024
+      </p>
+      <div class="experience-role">
+       <h3>
+        Developer Advocate
+       </h3>
+       <p class="company">
+        INTMAX
+       </p>
+       <ul class="role-points">
+        <li>
+         Contributed to zero-knowledge developer documentation for a ZK rollup, covering protocol concepts, integration guides and onboarding material for external teams building on the network.
+        </li>
+        <li>
+         Drove protocol education and developer onboarding through technical presentations at Google DevFest Lagos and Africa Tech Summit in Nairobi.
+        </li>
+       </ul>
       </div>
-      <div style="display: flex; flex-direction: column;">
-
-        <div class="skill-row" data-reveal>
-          <div>Google Cloud</div>
-          <div>
-            <span class="tag tag-neutral">Compute Engine</span><span class="tag tag-neutral">Cloud Run</span><span class="tag tag-neutral">GKE</span><span class="tag tag-neutral">Cloud Storage</span><span class="tag tag-neutral">Cloud SQL</span><span class="tag tag-neutral">Pub/Sub</span><span class="tag tag-neutral">Artifact Registry</span><span class="tag tag-neutral">Cloud CDN</span><span class="tag tag-neutral">Cloud Armor</span><span class="tag tag-neutral">IAM</span><span class="tag tag-neutral">VPC</span>
-          </div>
-        </div>
-
-        <div class="skill-row" data-reveal>
-          <div>IaC, CI/CD &amp; automation</div>
-          <div>
-            <span class="tag tag-neutral">Terraform</span><span class="tag tag-neutral">Cloud Build</span><span class="tag tag-neutral">GitHub Actions</span><span class="tag tag-neutral">Docker</span><span class="tag tag-neutral">Kubernetes</span><span class="tag tag-neutral">Linux</span><span class="tag tag-neutral">gcloud CLI</span>
-          </div>
-        </div>
-
-        <div class="skill-row" data-reveal>
-          <div>Languages</div>
-          <div>
-            <span class="tag tag-neutral">TypeScript</span><span class="tag tag-neutral">JavaScript (Node.js)</span><span class="tag tag-neutral">Python</span><span class="tag tag-neutral">Solidity</span><span class="tag tag-neutral">Bash</span>
-          </div>
-        </div>
-
-        <div class="skill-row" data-reveal>
-          <div>Networking</div>
-          <div>
-            <span class="tag tag-neutral">VPC design</span><span class="tag tag-neutral">Subnetting</span><span class="tag tag-neutral">Firewall rules</span><span class="tag tag-neutral">DNS</span><span class="tag tag-neutral">Cloud NAT</span><span class="tag tag-neutral">Load balancing</span><span class="tag tag-neutral">TLS &amp; certificates</span>
-          </div>
-        </div>
-
-        <div class="skill-row" data-reveal>
-          <div>Security</div>
-          <div>
-            <span class="tag tag-neutral">IAM least privilege</span><span class="tag tag-neutral">Service accounts</span><span class="tag tag-neutral">Workload Identity</span><span class="tag tag-neutral">Secrets management</span><span class="tag tag-neutral">Network segmentation</span><span class="tag tag-neutral">Threat modelling</span><span class="tag tag-neutral">Secure SDLC</span>
-          </div>
-        </div>
-
-        <div class="skill-row" data-reveal>
-          <div>Observability</div>
-          <div>
-            <span class="tag tag-neutral">Cloud Monitoring</span><span class="tag tag-neutral">Cloud Logging</span><span class="tag tag-neutral">Structured logging</span><span class="tag tag-neutral">Uptime checks</span><span class="tag tag-neutral">SLO &amp; alerting design</span>
-          </div>
-        </div>
-
-        <div class="skill-row" data-reveal>
-          <div>Web &amp; backend</div>
-          <div>
-            <span class="tag tag-neutral">Express</span><span class="tag tag-neutral">NestJS</span><span class="tag tag-neutral">Next.js</span><span class="tag tag-neutral">React</span><span class="tag tag-neutral">Redis</span>
-          </div>
-        </div>
-
+     </article>
+     <article class="experience-row">
+      <p class="experience-date">
+       Sep 2022 - Jun 2023
+      </p>
+      <div class="experience-role">
+       <h3>
+        Software Engineer (Smart Contract)
+       </h3>
+       <p class="company">
+        Astraverse
+       </p>
+       <ul class="role-points">
+        <li>
+         Built a Gaming and Fashion protocol on Ethereum, writing and testing all smart contracts.
+        </li>
+        <li>
+         Designed and deployed ERC-1155 token contracts for the marketplace platform.
+        </li>
+       </ul>
+       <details class="role-details">
+        <summary>
+         More about this role
+        </summary>
+        <ul class="role-points">
+         <li>
+          Built Node.js and TypeScript APIs, integrating backend services with deployed contracts via Ethers.js and Wagmi, and handled integration with the frontend team.
+         </li>
+        </ul>
+       </details>
       </div>
-    </section>
-
-    <section id="experience" class="section-split">
-      <div>
-        <div class="card-kicker" data-reveal style="font-variant-numeric: tabular-nums; margin-bottom: 10px;">04</div>
-        <h2 data-reveal style="font-weight: 400; font-size: clamp(28px, 3.4vw, 38px); letter-spacing: -0.02em; margin: 0;">Experience</h2>
+     </article>
+     <article class="experience-row">
+      <p class="experience-date">
+       May 2022 - Sep 2022
+      </p>
+      <div class="experience-role">
+       <h3>
+        Software Engineer (Blockchain)
+       </h3>
+       <p class="company">
+        Collect Waves
+       </p>
+       <ul class="role-points">
+        <li>
+         Built NFT and marketplace contracts with ERC-20 token integration, and the API services supporting them.
+        </li>
+        <li>
+         Delivered the full application stack around the contracts: a frontend connected to on-chain state, and Node.js and TypeScript REST APIs for off-chain data.
+        </li>
+       </ul>
       </div>
-      <div style="display: flex; flex-direction: column; gap: clamp(30px, 4vw, 44px);">
-
-        <article data-reveal>
-          <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 10px;">
-            <h3 style="font-weight: 600; font-size: 23px; margin: 0;">Cloud Platform Engineer</h3>
-            <span style="font-size: 13px; letter-spacing: 0.04em; color: var(--color-neutral-600); font-variant-numeric: tabular-nums;">Jun 2026 - Present</span>
-          </div>
-          <p style="margin: 6px 0 14px; font-family: var(--font-heading); font-size: 17px; color: var(--color-accent-700);">Stablecoin Whale Monitor · Self-employed</p>
-          <ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 9px; font-size: 15.5px; line-height: 1.65;">
-            <li>Designed, built, and operate a live Google Cloud platform that monitors large USDC and USDT transfers on Ethereum, evolving it from Compute Engine VMs to Cloud Run/GKE and a Terraform-managed serverless architecture.</li>
-            <li>Built modular infrastructure using Cloud Run, Cloud Run Worker Pools, Cloud Storage, a global external Application Load Balancer, Cloud CDN, Cloud Armor, IAM, Secret Manager, and Cloud Monitoring.</li>
-            <li>Implemented approval-gated CI/CD with Cloud Build, immutable container releases, automated testing, and deployment smoke tests.</li>
-            <li>Applied least-privilege IAM, private storage, secured ingress, and workload-specific service accounts.</li>
-            <li>Improved reliability through crash-safe checkpointing, idempotent processing, observability, and production incident troubleshooting.</li>
-          </ul>
-        </article>
-
-        <div data-reveal="rule" style="height: 1px; background: var(--color-divider);"></div>
-
-        <article data-reveal>
-          <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 10px;">
-            <h3 style="font-weight: 600; font-size: 23px; margin: 0;">Security Engineer</h3>
-            <span style="font-size: 13px; letter-spacing: 0.04em; color: var(--color-neutral-600); font-variant-numeric: tabular-nums;">Feb 2025 - Jun 2026</span>
-          </div>
-          <p style="margin: 6px 0 14px; font-family: var(--font-heading); font-size: 17px; color: var(--color-accent-700);">Coinbase</p>
-          <ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 9px; font-size: 15.5px; line-height: 1.65;">
-            <li>Led smart contract security reviews for the Base-Solana Bridge, the x402 payment protocol, the Base Azul network upgrade and numerous other Coinbase core projects, assessing smart contract vulnerabilities, trust boundaries, cross-chain security failures, upgradeability issues, and integration and rollout risk.</li>
-            <li>Conducted multiple ecosystem security reviews for protocols integrating with Base, defining remediation requirements and release gates before integration or launch.</li>
-            <li>Built and maintained internal AI-powered smart contract auditing tooling used across the security organisation to support repeatable review workflows.</li>
-            <li>Served on call for security incident response, triaging live security incidents and coordinating resolution across engineering and security teams.</li>
-          </ul>
-        </article>
-
-        <div data-reveal="rule" style="height: 1px; background: var(--color-divider);"></div>
-
-        <article data-reveal>
-          <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 10px;">
-            <h3 style="font-weight: 600; font-size: 23px; margin: 0;">Independent Security Researcher</h3>
-            <span style="font-size: 13px; letter-spacing: 0.04em; color: var(--color-neutral-600); font-variant-numeric: tabular-nums;">Jan 2023 - Jan 2025</span>
-          </div>
-          <p style="margin: 6px 0 14px; font-family: var(--font-heading); font-size: 17px; color: var(--color-accent-700);">Independent · Code4rena, Cantina, Sherlock, Immunefi, Codehawks, QuillAudits</p>
-          <ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 9px; font-size: 15.5px; line-height: 1.65;">
-            <li>Completed 30+ smart contract security reviews, identifying 50 High- and Medium-severity vulnerabilities validated and accepted by protocol teams.</li>
-            <li>Reviewed a broad mix of DeFi and interoperability protocols including AMMs, lending markets, stablecoins, vaults, bridges and omnichain infrastructure, applying threat modelling and secure-SDLC analysis.</li>
-          </ul>
-        </article>
-
-        <div data-reveal="rule" style="height: 1px; background: var(--color-divider);"></div>
-
-        <article data-reveal>
-          <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 10px;">
-            <h3 style="font-weight: 600; font-size: 23px; margin: 0;">Developer Advocate</h3>
-            <span style="font-size: 13px; letter-spacing: 0.04em; color: var(--color-neutral-600); font-variant-numeric: tabular-nums;">Oct 2023 - Apr 2024</span>
-          </div>
-          <p style="margin: 6px 0 14px; font-family: var(--font-heading); font-size: 17px; color: var(--color-accent-700);">INTMAX</p>
-          <ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 9px; font-size: 15.5px; line-height: 1.65;">
-            <li>Contributed to zero-knowledge developer documentation for a ZK rollup, covering protocol concepts, integration guides and onboarding material for external teams building on the network.</li>
-            <li>Drove protocol education and developer onboarding through technical presentations at Google DevFest Lagos and Africa Tech Summit in Nairobi.</li>
-          </ul>
-        </article>
-
-        <div data-reveal="rule" style="height: 1px; background: var(--color-divider);"></div>
-
-        <article data-reveal>
-          <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 10px;">
-            <h3 style="font-weight: 600; font-size: 23px; margin: 0;">Software Engineer (Smart Contract)</h3>
-            <span style="font-size: 13px; letter-spacing: 0.04em; color: var(--color-neutral-600); font-variant-numeric: tabular-nums;">Sep 2022 - Jun 2023</span>
-          </div>
-          <p style="margin: 6px 0 14px; font-family: var(--font-heading); font-size: 17px; color: var(--color-accent-700);">Astraverse</p>
-          <ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 9px; font-size: 15.5px; line-height: 1.65;">
-            <li>Built a Gaming and Fashion protocol on Ethereum, writing and testing all smart contracts.</li>
-            <li>Designed and deployed ERC-1155 token contracts for the marketplace platform.</li>
-            <li>Built Node.js and TypeScript APIs, integrating backend services with deployed contracts via Ethers.js and Wagmi, and handled integration with the frontend team.</li>
-          </ul>
-        </article>
-
-        <div data-reveal="rule" style="height: 1px; background: var(--color-divider);"></div>
-
-        <article data-reveal>
-          <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 10px;">
-            <h3 style="font-weight: 600; font-size: 23px; margin: 0;">Software Engineer</h3>
-            <span style="font-size: 13px; letter-spacing: 0.04em; color: var(--color-neutral-600); font-variant-numeric: tabular-nums;">May 2022 - Sep 2022</span>
-          </div>
-          <p style="margin: 6px 0 14px; font-family: var(--font-heading); font-size: 17px; color: var(--color-accent-700);">Collect Waves</p>
-          <ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 9px; font-size: 15.5px; line-height: 1.65;">
-            <li>Built NFT and marketplace contracts with ERC-20 token integration, and the API services supporting them.</li>
-            <li>Delivered the full application stack around the contracts: a frontend connected to on-chain state, and Node.js and TypeScript REST APIs for off-chain data.</li>
-          </ul>
-        </article>
-
-      </div>
-    </section>
-
-    <section id="writing" class="section-split">
-      <div>
-        <div class="card-kicker" data-reveal style="font-variant-numeric: tabular-nums; margin-bottom: 10px;">05</div>
-        <h2 data-reveal style="font-weight: 400; font-size: clamp(28px, 3.4vw, 38px); letter-spacing: -0.02em; margin: 0;">Writing &amp; speaking</h2>
-      </div>
-      <div style="display: flex; flex-direction: column;">
-
-        <div data-reveal style="display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: baseline; padding: 18px 0; border-bottom: 1px solid var(--color-divider);">
-          <div>
-            <div style="font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent-700); margin-bottom: 6px;">Article · Hashnode · SWM 1</div>
-            <a href="https://josephdara.hashnode.dev/gcp-swm-1-vm" target="_blank" rel="noreferrer" class="link-title">Building and Deploying a Blockchain Indexer on Google Cloud</a>
-          </div>
-        </div>
-
-        <div data-reveal style="display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: baseline; padding: 18px 0; border-bottom: 1px solid var(--color-divider);">
-          <div>
-            <div style="font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent-700); margin-bottom: 6px;">Article · Hashnode · SWM 2</div>
-            <a href="https://josephdara.hashnode.dev/gcp-swm-2-cloudrun-gke" target="_blank" rel="noreferrer" class="link-title">From Two VMs to Cloud Run: Evolving My Blockchain Indexer on Google Cloud</a>
-          </div>
-        </div>
-
-        <div data-reveal style="display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: baseline; padding: 18px 0; border-bottom: 1px solid var(--color-divider);">
-          <div>
-            <div style="font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent-700); margin-bottom: 6px;">Article · Hashnode · SWM 3</div>
-            <a href="https://josephdara.hashnode.dev/gcp-swm-3-terraform" target="_blank" rel="noreferrer" class="link-title">From Cloud Run Experiment to Terraform-Managed Platform: Productionizing My Blockchain Indexer on Google Cloud</a>
-          </div>
-        </div>
-
-        <div data-reveal style="display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: baseline; padding: 18px 0; border-bottom: 1px solid var(--color-divider);">
-          <div>
-            <div style="font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent-700); margin-bottom: 6px;">Article · Hashnode · Bank Shared VPC &amp; PSC</div>
-            <a href="https://josephdara.hashnode.dev/networking-psc" target="_blank" rel="noreferrer" class="link-title">Enterprise GCP Networking in Practice: Shared VPC for Governance, Private Service Connect for Isolation</a>
-          </div>
-        </div>
-
-        <div data-reveal style="display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: baseline; padding: 18px 0; border-bottom: 1px solid var(--color-divider);">
-          <div>
-            <div style="font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent-700); margin-bottom: 6px;">Talk · DeFi Security Summit</div>
-            <div style="font-family: var(--font-heading); font-size: 21px; line-height: 1.25;">Speaker, representing the Coinbase Security team</div>
-          </div>
-          <span style="font-size: 13px; color: var(--color-neutral-600); font-variant-numeric: tabular-nums;">2025</span>
-        </div>
-
-        <div data-reveal style="display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: baseline; padding: 18px 0;">
-          <div>
-            <div style="font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent-700); margin-bottom: 6px;">Talks · Google DevFest Lagos · Africa Tech Summit Nairobi</div>
-            <div style="font-family: var(--font-heading); font-size: 21px; line-height: 1.25;">Protocol education and developer onboarding</div>
-          </div>
-          <span style="font-size: 13px; color: var(--color-neutral-600); font-variant-numeric: tabular-nums;">2023 - 2024</span>
-        </div>
-
-      </div>
-    </section>
-
-    <section class="section-split">
-      <div>
-        <div class="card-kicker" data-reveal style="font-variant-numeric: tabular-nums; margin-bottom: 10px;">06</div>
-        <h2 data-reveal style="font-weight: 400; font-size: clamp(28px, 3.4vw, 38px); letter-spacing: -0.02em; margin: 0;">Education</h2>
-      </div>
-      <div data-reveal style="display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: baseline;">
-        <div>
-          <h3 style="font-weight: 600; font-size: 23px; margin: 0 0 6px;">B.Sc. Mathematics</h3>
-          <p style="margin: 0; font-size: 15px; color: var(--color-neutral-700);">Federal University of Agriculture, Abeokuta, Nigeria</p>
-        </div>
-        <span style="font-size: 13px; letter-spacing: 0.04em; color: var(--color-neutral-600); font-variant-numeric: tabular-nums;">2018 - 2022</span>
-      </div>
-    </section>
-
-    <section style="border-top: 1px solid var(--color-divider); padding: clamp(52px, 8vw, 96px) 0;">
-      <h2 data-reveal style="font-weight: 400; font-size: clamp(32px, 5vw, 56px); letter-spacing: -0.025em; margin: 0; max-width: 24ch; line-height: 1.05;">Hiring for cloud infrastructure? Let's talk.</h2>
-      <div data-reveal style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 30px;">
-        <a class="btn btn-primary" href="mailto:jsatimehin@gmail.com" style="font-size: 14.5px; padding: 12px 22px;">jsatimehin@gmail.com</a>
-        <a class="btn btn-secondary" href="https://linkedin.com/in/joseph-olutimehin" target="_blank" rel="noreferrer" style="font-size: 14.5px; padding: 12px 20px;">LinkedIn</a>
-        <a class="btn btn-secondary" href="./Joseph_Olutimehin_Resume.pdf" style="font-size: 14.5px; padding: 12px 20px;">Résumé (PDF)</a>
-      </div>
-    </section>
-
-    <footer style="border-top: 1px solid var(--color-divider); padding: 28px 0 44px; display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center; font-size: 13px; color: var(--color-neutral-600);">
-      <span>© 2026 Joseph Olutimehin · Toronto, ON</span>
-      <div style="display: flex; flex-wrap: wrap; gap: 20px;">
-        <a href="mailto:jsatimehin@gmail.com" style="color: inherit; text-decoration: none;">Email</a>
-        <a href="https://github.com/josephdara" target="_blank" rel="noreferrer" style="color: inherit; text-decoration: none;">GitHub</a>
-        <a href="https://linkedin.com/in/joseph-olutimehin" target="_blank" rel="noreferrer" style="color: inherit; text-decoration: none;">LinkedIn</a>
-        <a href="https://twitter.com/jhoe0x" target="_blank" rel="noreferrer" style="color: inherit; text-decoration: none;">Twitter</a>
-      </div>
-    </footer>
-
-  </div>
-</div>
-
-<script>
-  (function () {
-    // Reveal on scroll: rules wipe in from the left, everything else lifts.
-    var targets = document.querySelectorAll('[data-reveal]');
-    if (!('IntersectionObserver' in window)) {
-      targets.forEach(function (el) { el.classList.add('is-visible'); });
-    } else {
-      var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) {
-          if (!e.isIntersecting) return;
-          e.target.classList.add('is-visible');
-          io.unobserve(e.target);
-        });
-      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
-      targets.forEach(function (el) { io.observe(el); });
-    }
-
-    // Credly badge embed: the widget iframe reserves more height than the
-    // badge needs, so trim it once it has rendered.
-    function trimCredly() {
-      var f = document.querySelector('[data-credly-mount] iframe');
-      if (f) f.style.height = '212px';
-    }
-    var s = document.createElement('script');
-    s.async = true;
-    s.src = 'https://cdn.credly.com/assets/utilities/embed.js';
-    document.body.appendChild(s);
-    [900, 1800, 3000].forEach(function (ms) { setTimeout(trimCredly, ms); });
-  })();
-</script>
-
-</body>
+     </article>
+    </div>
+   </section>
+   <section aria-labelledby="skills-title" class="section" id="skills">
+    <div class="section-heading">
+     <div>
+      <p class="eyebrow">
+       03 / Toolkit
+      </p>
+      <h2 id="skills-title">
+       Tools of the trade.
+      </h2>
+     </div>
+    </div>
+    <div class="skills-grid">
+     <div class="skill-group">
+      <h3>
+       Google Cloud
+      </h3>
+      <ul class="skill-tags">
+       <li>
+        Compute Engine
+       </li>
+       <li>
+        Cloud Run
+       </li>
+       <li>
+        GKE
+       </li>
+       <li>
+        Cloud Storage
+       </li>
+       <li>
+        Cloud SQL
+       </li>
+       <li>
+        Pub/Sub
+       </li>
+       <li>
+        Artifact Registry
+       </li>
+       <li>
+        Cloud CDN
+       </li>
+       <li>
+        Cloud Armor
+       </li>
+       <li>
+        IAM
+       </li>
+       <li>
+        VPC
+       </li>
+      </ul>
+     </div>
+     <div class="skill-group">
+      <h3>
+       IaC, CI/CD &amp; automation
+      </h3>
+      <ul class="skill-tags">
+       <li>
+        Terraform
+       </li>
+       <li>
+        Cloud Build
+       </li>
+       <li>
+        GitHub Actions
+       </li>
+       <li>
+        Docker
+       </li>
+       <li>
+        Kubernetes
+       </li>
+       <li>
+        Linux
+       </li>
+       <li>
+        gcloud CLI
+       </li>
+      </ul>
+     </div>
+     <div class="skill-group">
+      <h3>
+       Languages
+      </h3>
+      <ul class="skill-tags">
+       <li>
+        TypeScript
+       </li>
+       <li>
+        JavaScript (Node.js)
+       </li>
+       <li>
+        Python
+       </li>
+       <li>
+        Rust
+       </li>
+       <li>
+        Solidity
+       </li>
+       <li>
+        Bash
+       </li>
+      </ul>
+     </div>
+     <div class="skill-group">
+      <h3>
+       Networking
+      </h3>
+      <ul class="skill-tags">
+       <li>
+        VPC design
+       </li>
+       <li>
+        Subnetting
+       </li>
+       <li>
+        Firewall rules
+       </li>
+       <li>
+        DNS
+       </li>
+       <li>
+        Cloud NAT
+       </li>
+       <li>
+        Load balancing
+       </li>
+       <li>
+        TLS &amp; certificates
+       </li>
+      </ul>
+     </div>
+     <div class="skill-group">
+      <h3>
+       Security
+      </h3>
+      <ul class="skill-tags">
+       <li>
+        IAM least privilege
+       </li>
+       <li>
+        Service accounts
+       </li>
+       <li>
+        Workload Identity
+       </li>
+       <li>
+        Secrets management
+       </li>
+       <li>
+        Network segmentation
+       </li>
+       <li>
+        Threat modelling
+       </li>
+       <li>
+        Secure SDLC
+       </li>
+      </ul>
+     </div>
+     <div class="skill-group">
+      <h3>
+       Observability
+      </h3>
+      <ul class="skill-tags">
+       <li>
+        Cloud Monitoring
+       </li>
+       <li>
+        Cloud Logging
+       </li>
+       <li>
+        Structured logging
+       </li>
+       <li>
+        Uptime checks
+       </li>
+       <li>
+        SLO &amp; alerting design
+       </li>
+      </ul>
+     </div>
+     <div class="skill-group">
+      <h3>
+       Web &amp; backend
+      </h3>
+      <ul class="skill-tags">
+       <li>
+        Express
+       </li>
+       <li>
+        NestJS
+       </li>
+       <li>
+        Next.js
+       </li>
+       <li>
+        React
+       </li>
+       <li>
+        Redis
+       </li>
+      </ul>
+     </div>
+    </div>
+   </section>
+   <section aria-labelledby="writing-title" class="section" id="writing">
+    <div class="section-heading">
+     <div>
+      <p class="eyebrow">
+       04 / Writing
+      </p>
+      <h2 id="writing-title">
+       Engineering notes.
+      </h2>
+     </div>
+     <p>
+      Google Cloud, infrastructure, and lessons from building and operating.
+     </p>
+    </div>
+    <div class="writing-grid">
+     <article class="article-card">
+      <a class="article-link" href="https://josephdara.hashnode.dev/gcp-swm-3-terraform" rel="noopener noreferrer" target="_blank">
+       <img alt="" class="article-image" decoding="async" height="525" loading="lazy" src="./assets/articles/swm3.webp" width="1000"/>
+       <div class="article-body">
+        <span class="card-meta">
+         SWM · Part 03 · Terraform
+        </span>
+        <h3>
+         From Cloud Run Experiment to Terraform-Managed Platform: Productionizing My Blockchain Indexer on Google Cloud
+        </h3>
+        <p>
+         Rebuilding the platform with Terraform, continuous processing, least-privilege CI/CD, and observability.
+        </p>
+        <span class="article-cta">
+         Read on Hashnode
+         <span aria-hidden="true">
+          ↗
+         </span>
+         <span class="sr-only">
+          (opens in a new tab)
+         </span>
+        </span>
+       </div>
+      </a>
+     </article>
+     <article class="article-card">
+      <a class="article-link" href="https://josephdara.hashnode.dev/networking-psc" rel="noopener noreferrer" target="_blank">
+       <img alt="" class="article-image" decoding="async" height="525" loading="lazy" src="./assets/articles/networking.webp" width="1000"/>
+       <div class="article-body">
+        <span class="card-meta">
+         Networking · Shared VPC &amp; PSC
+        </span>
+        <h3>
+         Enterprise GCP Networking in Practice: Shared VPC for Governance, Private Service Connect for Isolation
+        </h3>
+        <p>
+         A practical GCP network build with shared governance and private access between projects.
+        </p>
+        <span class="article-cta">
+         Read on Hashnode
+         <span aria-hidden="true">
+          ↗
+         </span>
+         <span class="sr-only">
+          (opens in a new tab)
+         </span>
+        </span>
+       </div>
+      </a>
+     </article>
+     <article class="article-card">
+      <a class="article-link" href="https://josephdara.hashnode.dev/gcp-swm-2-cloudrun-gke" rel="noopener noreferrer" target="_blank">
+       <img alt="" class="article-image" decoding="async" height="525" loading="lazy" src="./assets/articles/swm2.webp" width="1000"/>
+       <div class="article-body">
+        <span class="card-meta">
+         SWM · Part 02 · Cloud Run &amp; GKE
+        </span>
+        <h3>
+         From Two VMs to Cloud Run: Evolving My Blockchain Indexer on Google Cloud
+        </h3>
+        <p>
+         Moving from VMs to containers, with Cloud Storage, Pub/Sub alerts, and GKE Autopilot.
+        </p>
+        <span class="article-cta">
+         Read on Hashnode
+         <span aria-hidden="true">
+          ↗
+         </span>
+         <span class="sr-only">
+          (opens in a new tab)
+         </span>
+        </span>
+       </div>
+      </a>
+     </article>
+     <article class="article-card">
+      <a class="article-link" href="https://josephdara.hashnode.dev/gcp-swm-1-vm" rel="noopener noreferrer" target="_blank">
+       <img alt="" class="article-image" decoding="async" height="525" loading="lazy" src="./assets/articles/swm1.webp" width="1000"/>
+       <div class="article-body">
+        <span class="card-meta">
+         SWM · Part 01 · Compute Engine
+        </span>
+        <h3>
+         Building and Deploying a Blockchain Indexer on Google Cloud
+        </h3>
+        <p>
+         Building a stablecoin indexer on Google Cloud, starting with a VM-based deployment.
+        </p>
+        <span class="article-cta">
+         Read on Hashnode
+         <span aria-hidden="true">
+          ↗
+         </span>
+         <span class="sr-only">
+          (opens in a new tab)
+         </span>
+        </span>
+       </div>
+      </a>
+     </article>
+    </div>
+   </section>
+   <section aria-labelledby="about-title" class="section" id="about">
+    <div class="section-heading">
+     <div>
+      <p class="eyebrow">
+       05 / About
+      </p>
+      <h2 id="about-title">
+       An engineer's perspective.
+      </h2>
+     </div>
+    </div>
+    <div class="about-grid">
+     <div class="about-copy">
+      <p>
+       Before shifting to full-time cloud work, I spent four years in blockchain security and smart contract development, most recently at Coinbase, where I audited bridges, payment protocols, and network upgrades securing billions of dollars.
+      </p>
+      <p>
+       That experience shapes how I approach cloud architecture: minimal IAM permissions, private-by-default networking, and observability in place before the first production incident.
+      </p>
+      <p>
+       I'm based in Toronto, with a background in mathematics and experience helping developers understand and build on complex protocols.
+      </p>
+     </div>
+     <div class="credentials">
+      <article class="credential">
+       <p class="eyebrow">
+        Education
+       </p>
+       <h3>
+        B.Sc. Mathematics
+       </h3>
+       <p>
+        Federal University of Agriculture, Abeokuta, Nigeria
+       </p>
+       <p>
+        2018–2022
+       </p>
+      </article>
+     </div>
+    </div>
+    <div class="speaking-list">
+     <h3>
+      Speaking &amp; developer education
+     </h3>
+     <div class="talk">
+      <p>
+       <strong>
+        DeFi Security Summit
+       </strong>
+       <br/>
+       Speaker, representing the Coinbase Security team.
+      </p>
+      <time datetime="2025">
+       2025
+      </time>
+     </div>
+     <div class="talk">
+      <p>
+       <strong>
+        Google DevFest Lagos &amp; Africa Tech Summit Nairobi
+       </strong>
+       <br/>
+       Protocol education and developer onboarding.
+      </p>
+      <span>
+       2023–2024
+      </span>
+     </div>
+    </div>
+   </section>
+   <section aria-labelledby="contact-title" class="contact" id="contact">
+    <p class="eyebrow">
+     Let's connect
+    </p>
+    <h2 id="contact-title">
+     Let's build something reliable.
+    </h2>
+    <p>
+     Hiring for cloud infrastructure? I'd like to hear from you.
+    </p>
+    <div class="actions">
+     <a class="button" href="mailto:jsatimehin@gmail.com">
+      jsatimehin@gmail.com
+      <span aria-hidden="true">
+       ↗
+      </span>
+     </a>
+     <a class="text-link" href="https://linkedin.com/in/joseph-olutimehin" rel="noopener noreferrer" target="_blank">
+      LinkedIn ↗
+     </a>
+     <a class="text-link" href="./Joseph_Olutimehin_Resume.pdf">
+      Résumé (PDF) ↗
+     </a>
+    </div>
+   </section>
+  </main>
+  <footer class="footer shell">
+   <span>
+    © 2026 Joseph Olutimehin · Toronto, ON
+   </span>
+   <div class="footer-links">
+    <a href="mailto:jsatimehin@gmail.com">
+     Email
+    </a>
+    <a href="https://github.com/josephdara" rel="noopener noreferrer" target="_blank">
+     GitHub ↗
+    </a>
+    <a href="https://linkedin.com/in/joseph-olutimehin" rel="noopener noreferrer" target="_blank">
+     LinkedIn ↗
+    </a>
+    <a href="https://twitter.com/jhoe0x" rel="noopener noreferrer" target="_blank">
+     Twitter ↗
+    </a>
+   </div>
+  </footer>
+ </body>
 </html>
